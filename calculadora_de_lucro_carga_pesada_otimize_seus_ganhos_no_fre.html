@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BR3HEYH82C"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BR3HEYH82C');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Lucro Carga Pesada: Otimize Seus Ganhos no Frete</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { background: #050505; color: #f8fafc; font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-slate-900 p-8 rounded-xl shadow-2xl border border-slate-800">
+        <h1 class="text-2xl font-black text-center text-blue-500 mb-6">Calculadora de Lucro Carga Pesada: Otimize Seus Ganhos no Frete</h1>
+        
+        <div class="w-full h-20 bg-black/40 border border-dashed border-slate-700 rounded mb-6 flex items-center justify-center">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1243114536236949" data-ad-slot="1234567890" data-ad-format="auto"></ins>
+        </div>
+
+        <div id="form-area" class="space-y-4">
+            <div class='flex flex-col shadow-lg p-4 bg-gray-800 text-white rounded-md w-1/2 mx-auto mt-10'>
+      <label for='valor_frete_total' class='text-lg font-bold mb-2'>Valor do Frete Total:</label>
+      <input type='number' id='valor_frete_total' class='p-2 mb-4 border border-gray-600 rounded-md' placeholder='R$ 5.000,00'>
+      <label for='distancia_viagem_km' class='text-lg font-bold mb-2'>Distância da Viagem (km):</label>
+      <input type='number' id='distancia_viagem_km' class='p-2 mb-4 border border-gray-600 rounded-md' placeholder='800'>
+      <label for='consumo_veiculo_km_por_litro' class='text-lg font-bold mb-2'>Consumo do Veículo (km/l):</label>
+      <input type='number' id='consumo_veiculo_km_por_litro' class='p-2 mb-4 border border-gray-600 rounded-md' placeholder='2.5'>
+      <label for='preco_combustivel_por_litro' class='text-lg font-bold mb-2'>Preço do Combustível por Litro:</label>
+      <input type='number' id='preco_combustivel_por_litro' class='p-2 mb-4 border border-gray-600 rounded-md' placeholder='R$ 6.50'>
+      <label for='custo_pedagios_total' class='text-lg font-bold mb-2'>Custo Total de Pedágios:</label>
+      <input type='number' id='custo_pedagios_total' class='p-2 mb-4 border border-gray-600 rounded-md' placeholder='R$ 300,00'>
+      <label for='custo_diaria_motorista' class='text-lg font-bold mb-2'>Custo da Diária do Motorista:</label>
+      <input type='number' id='custo_diaria_motorista' class='p-2 mb-4 border border-gray-600 rounded-md' placeholder='R$ 250,00'>
+      <label for='outros_custos_variaveis_por_km' class='text-lg font-bold mb-2'>Outros Custos Variáveis por km:</label>
+      <input type='number' id='outros_custos_variaveis_por_km' class='p-2 mb-4 border border-gray-600 rounded-md' placeholder='R$ 0.50'>
+      <label for='custos_fixos_rateados_por_viagem' class='text-lg font-bold mb-2'>Custos Fixos Rateados por Viagem:</label>
+      <input type='number' id='custos_fixos_rateados_por_viagem' class='p-2 mb-4 border border-gray-600 rounded-md' placeholder='R$ 200,00'>
+      <button id='calcular' class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md'>Calcular Lucro</button>
+      <p id='resultado-valor' class='text-lg font-bold mt-4'></p>
+   </div>
+            <button id="btn-calc" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg mt-4 shadow-lg shadow-blue-900 transition-all">PROCESSAR CÁLCULO B2B</button>
+        </div>
+
+        <div id="loading-area" class="hidden py-10 text-center">
+            <p class="text-xs text-blue-400 animate-pulse mb-3 font-mono">SINCRONIZANDO MATRIZ DE DADOS...</p>
+            <div class="w-full bg-slate-800 h-1 rounded"><div id="bar" class="w-0 h-full bg-blue-500 transition-all duration-[4500ms] ease-linear"></div></div>
+        </div>
+
+        <div id="result-area" class="hidden mt-6 bg-black/50 p-6 rounded-lg text-center border border-slate-800">
+            <p class="text-xs text-slate-500 font-bold uppercase mb-4">Resultado Analítico</p>
+            <div id="resultado-valor" class="text-3xl font-mono font-bold text-green-500 mb-4"></div>
+            <div class="p-3 bg-blue-900/10 border border-blue-500/10 rounded text-xs text-blue-400 animate-pulse">🔥 Utilizado por 140+ profissionais hoje.</div>
+            <button onclick="location.reload()" class="mt-6 text-[10px] text-slate-600 hover:text-white uppercase font-bold tracking-widest">Nova Simulação</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('btn-calc').addEventListener('click', function() {
+            document.getElementById('form-area').classList.add('hidden');
+            document.getElementById('loading-area').classList.remove('hidden');
+            setTimeout(() => { document.getElementById('bar').style.width = '100%'; }, 50);
+            setTimeout(() => {
+                document.getElementById('loading-area').classList.add('hidden');
+                document.getElementById('result-area').classList.remove('hidden');
+                try { document.getElementById('calcular').addEventListener('click', function() { 
+      var valorFreteTotal = parseFloat(document.getElementById('valor_frete_total').value); 
+      var distanciaViagemKm = parseFloat(document.getElementById('distancia_viagem_km').value); 
+      var consumoVeiculoKmPorLitro = parseFloat(document.getElementById('consumo_veiculo_km_por_litro').value); 
+      var precoCombustivelPorLitro = parseFloat(document.getElementById('preco_combustivel_por_litro').value); 
+      var custoPedagiosTotal = parseFloat(document.getElementById('custo_pedagios_total').value); 
+      var custoDiariaMotorista = parseFloat(document.getElementById('custo_diaria_motorista').value); 
+      var outrosCustosVariaveisPorKm = parseFloat(document.getElementById('outros_custos_variaveis_por_km').value); 
+      var custosFixosRateadosPorViagem = parseFloat(document.getElementById('custos_fixos_rateados_por_viagem').value); 
+      var custoCombustivel = (distanciaViagemKm / consumoVeiculoKmPorLitro) * precoCombustivelPorLitro; 
+      var custoVariavelTotal = distanciaViagemKm * outrosCustosVariaveisPorKm; 
+      var custoTotalOperacional = custoCombustivel + custoPedagiosTotal + custoDiariaMotorista + custoVariavelTotal + custosFixosRateadosPorViagem; 
+      var lucroLiquido = valorFreteTotal - custoTotalOperacional; 
+      document.getElementById('resultado-valor').innerHTML = 'R$ ' + lucroLiquido.toFixed(2); 
+   }); } catch(e) { document.getElementById('resultado-valor').innerHTML = "Erro de cálculo."; }
+            }, 4500);
+        });
+    </script>
+</body>
+</html>
