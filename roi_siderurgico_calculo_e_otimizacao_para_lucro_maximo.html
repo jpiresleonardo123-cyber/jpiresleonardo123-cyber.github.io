@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- RASTREAMENTO METRÓPOLE -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BR3HEYH82C"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BR3HEYH82C');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Siderúrgico: Cálculo e Otimização para Lucro Máximo</title>
+    
+    <!-- FRAMEWORKS DE ALTO DESEMPENHO -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS CYBERPUNK & GLASSMORPHISM -->
+    <style>
+        body {
+            background-color: #030305;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(16, 30, 60, 0.4), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(10, 40, 50, 0.4), transparent 25%);
+            color: #e2e8f0;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .cyber-font { font-family: 'Rajdhani', sans-serif; }
+        
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
+        }
+
+        /* O Segredo do Slider Neon */
+        input[type=range] {
+            -webkit-appearance: none; width: 100%; background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%;
+            background: #00f0ff; cursor: pointer; margin-top: -8px;
+            box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 4px; cursor: pointer;
+            background: rgba(255,255,255,0.1); border-radius: 2px;
+        }
+        input[type=range]:focus { outline: none; }
+
+        .neon-text { text-shadow: 0 0 5px rgba(0, 240, 255, 0.5); }
+        .pulse-alert { animation: pulse-border 2s infinite; }
+        @keyframes pulse-border {
+            0% { border-color: rgba(0, 240, 255, 0.2); box-shadow: 0 0 0 rgba(0,240,255,0); }
+            50% { border-color: rgba(0, 240, 255, 0.8); box-shadow: 0 0 15px rgba(0,240,255,0.4); }
+            100% { border-color: rgba(0, 240, 255, 0.2); box-shadow: 0 0 0 rgba(0,240,255,0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10 px-4 relative">
+    
+    <!-- GRID DE FUNDO CYBERPUNK -->
+    <div class="fixed inset-0 z-[-1] opacity-[0.03]" style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+    <main class="w-full max-w-2xl glass-panel rounded-2xl p-6 md:p-10 relative overflow-hidden">
+        <!-- LUZ DE DESTAQUE NO TOPO DO PAINEL -->
+        <div class="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-[#00f0ff] to-transparent shadow-[0_0_15px_#00f0ff]"></div>
+
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-3 cyber-font tracking-tight uppercase neon-text">ROI Siderúrgico: Cálculo e Otimização para Lucro Máximo</h1>
+            <p class="text-slate-400 text-sm md:text-base">Módulo Analítico B2B Avançado v2.0</p>
+        </header>
+        
+        <!-- ZONA DE MONETIZAÇÃO (ADSENSE - BLEND PERFEITO) -->
+        <div class="w-full min-h-[90px] bg-black/40 border border-slate-800 rounded-lg mb-8 flex items-center justify-center relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900/10 to-purple-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1243114536236949" data-ad-slot="1234567890" data-ad-format="auto"></ins>
+        </div>
+
+        <!-- ENTRADA DE DADOS (SLIDERS INJETADOS PELA IA) -->
+        <div id="form-area" class="space-y-6 transition-all duration-500">
+            <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase cyber-font'>Custo_Investimento_Total</label>
+        <span class='text-sm font-mono text-white' id='Custo_Investimento_Total-val'>0</span>
+      </div>
+      <input type='range' id='Custo_Investimento_Total' min='0' max='100000000' step='1000' value='10000000' oninput="updateSliderValue('Custo_Investimento_Total')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase cyber-font'>Beneficios_Anuais_Aumento_Receita</label>
+        <span class='text-sm font-mono text-white' id='Beneficios_Anuais_Aumento_Receita-val'>0</span>
+      </div>
+      <input type='range' id='Beneficios_Anuais_Aumento_Receita' min='0' max='100000000' step='1000' value='2000000' oninput="updateSliderValue('Beneficios_Anuais_Aumento_Receita')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase cyber-font'>Beneficios_Anuais_Reducao_Custos</label>
+        <span class='text-sm font-mono text-white' id='Beneficios_Anuais_Reducao_Custos-val'>0</span>
+      </div>
+      <input type='range' id='Beneficios_Anuais_Reducao_Custos' min='0' max='100000000' step='1000' value='1500000' oninput="updateSliderValue('Beneficios_Anuais_Reducao_Custos')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase cyber-font'>Custos_Operacionais_Adicionais_Anuais</label>
+        <span class='text-sm font-mono text-white' id='Custos_Operacionais_Adicionais_Anuais-val'>0</span>
+      </div>
+      <input type='range' id='Custos_Operacionais_Adicionais_Anuais' min='0' max='100000000' step='1000' value='200000' oninput="updateSliderValue('Custos_Operacionais_Adicionais_Anuais')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase cyber-font'>Horizonte_Tempo_Anos</label>
+        <span class='text-sm font-mono text-white' id='Horizonte_Tempo_Anos-val'>0</span>
+      </div>
+      <input type='range' id='Horizonte_Tempo_Anos' min='1' max='20' step='1' value='5' oninput="updateSliderValue('Horizonte_Tempo_Anos')">
+
+   </div>
+            
+            <button id="btn-calc" class="w-full mt-8 bg-gradient-to-r from-cyan-600 to-blue-700 hover:from-cyan-500 hover:to-blue-600 text-white font-bold py-4 rounded-xl text-lg uppercase tracking-widest shadow-[0_0_20px_rgba(0,195,255,0.3)] hover:shadow-[0_0_30px_rgba(0,195,255,0.6)] transition-all duration-300 transform hover:-translate-y-1">
+                EXECUTAR REDE NEURAL
+            </button>
+        </div>
+
+        <!-- TELA DE PROCESSAMENTO (EFEITO ZEIGARNIK / LABOUR ILLUSION) -->
+        <div id="loading-area" class="hidden py-16 flex flex-col items-center justify-center">
+            <div class="relative w-24 h-24 mb-6">
+                <div class="absolute inset-0 border-4 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin"></div>
+                <div class="absolute inset-2 border-4 border-purple-500/20 border-b-purple-500 rounded-full animate-spin animate-reverse" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+            </div>
+            <h3 class="cyber-font text-xl text-cyan-400 font-bold mb-2 animate-pulse">SINTETIZANDO DADOS GLOBAIS</h3>
+            <p class="text-xs text-slate-500 font-mono" id="loading-text">Conectando aos servidores matriz...</p>
+            
+            <div class="w-full max-w-xs mt-6 bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-800">
+                <div id="bar" class="w-0 h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-[4500ms] ease-linear shadow-[0_0_10px_#00f0ff]"></div>
+            </div>
+        </div>
+
+        <!-- RESULTADO E GRÁFICO (RECOMPENSA NEUROLÓGICA) -->
+        <div id="result-area" class="hidden mt-4 opacity-0 transition-opacity duration-1000">
+            <div class="bg-black/40 border border-slate-700 p-6 md:p-8 rounded-xl text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-2 opacity-20"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                
+                <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2 cyber-font">Diagnóstico Calculado</h2>
+                <div id="resultado-valor" class="text-4xl md:text-5xl font-black text-white cyber-font mb-8 neon-text"></div>
+                
+                <!-- CANVAS DO GRÁFICO DA IA -->
+                <div class="w-full aspect-video bg-black/20 rounded-lg border border-slate-800 p-2 mb-6">
+                    <canvas id="grafico-ia"></canvas>
+                </div>
+
+                <div class="pulse-alert p-3 bg-cyan-900/20 border border-cyan-500/50 rounded-lg text-xs md:text-sm text-cyan-300 flex items-center justify-center gap-2">
+                    <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span></span>
+                    <b>PROVA SOCIAL:</b> 214 especialistas executaram este cálculo nas últimas 24h.
+                </div>
+            </div>
+            
+            <button onclick="location.reload()" class="w-full mt-6 py-3 border border-slate-700 hover:border-cyan-500 text-slate-400 hover:text-cyan-400 rounded-lg uppercase tracking-widest text-xs font-bold transition-colors">
+                [ INICIAR NOVA SIMULAÇÃO ]
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // Lógica de Retenção Visual e Atualização de Sliders em Tempo Real
+        function updateSliderValue(id) {
+            const slider = document.getElementById(id);
+            const display = document.getElementById(id + '-val');
+            if(slider && display) display.innerText = slider.value;
+        }
+
+        document.getElementById('btn-calc').addEventListener('click', function() {
+            // Esconde Form, Mostra Loader
+            document.getElementById('form-area').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('form-area').classList.add('hidden');
+                document.getElementById('loading-area').classList.remove('hidden');
+                
+                // Animações Psicológicas
+                setTimeout(() => { document.getElementById('bar').style.width = '100%'; }, 50);
+                
+                const texts = ["Consultando matriz de mercado...", "Processando algoritmos B2B...", "Renderizando diagnóstico..."];
+                let t = 0;
+                const textInt = setInterval(() => {
+                    document.getElementById('loading-text').innerText = texts[t];
+                    t++; if(t >= texts.length) clearInterval(textInt);
+                }, 1300);
+
+                // Libera o Resultado após 4.5s
+                setTimeout(() => {
+                    document.getElementById('loading-area').classList.add('hidden');
+                    const resultArea = document.getElementById('result-area');
+                    resultArea.classList.remove('hidden');
+                    // Força a renderização do display flex/block antes de animar a opacidade
+                    requestAnimationFrame(() => {
+                        resultArea.style.opacity = '1';
+                        // RODA O CÓDIGO DA IA
+                        try { executarCalculosIA(); } catch(e) { console.error(e); document.getElementById('resultado-valor').innerHTML = "Erro Sistêmico."; }
+                    });
+                }, 4500);
+            }, 500);
+        });
+
+        // O bloco abaixo é substituído pelo Python
+        function updateSliderValue(id) { document.getElementById(id + '-val').innerHTML = document.getElementById(id).value; } 
+    function executarCalculosIA() { 
+      var Custo_Investimento_Total = parseInt(document.getElementById('Custo_Investimento_Total').value); 
+      var Beneficios_Anuais_Aumento_Receita = parseInt(document.getElementById('Beneficios_Anuais_Aumento_Receita').value); 
+      var Beneficios_Anuais_Reducao_Custos = parseInt(document.getElementById('Beneficios_Anuais_Reducao_Custos').value); 
+      var Custos_Operacionais_Adicionais_Anuais = parseInt(document.getElementById('Custos_Operacionais_Adicionais_Anuais').value); 
+      var Horizonte_Tempo_Anos = parseInt(document.getElementById('Horizonte_Tempo_Anos').value); 
+      var resultado = (((Beneficios_Anuais_Aumento_Receita + Beneficios_Anuais_Reducao_Custos - Custos_Operacionais_Adicionais_Anuais) * Horizonte_Tempo_Anos - Custo_Investimento_Total) / Custo_Investimento_Total) * 100; 
+      document.getElementById('resultado-valor').innerHTML = 'R$ ' + resultado.toFixed(2); 
+      var custo = Custo_Investimento_Total; 
+      var lucro = (Beneficios_Anuais_Aumento_Receita + Beneficios_Anuais_Reducao_Custos - Custos_Operacionais_Adicionais_Anuais) * Horizonte_Tempo_Anos; 
+      new Chart(document.getElementById('grafico-ia'), { type: 'doughnut', data: { labels: ['Custo', 'Lucro'], datasets: [{ data: [custo, lucro], backgroundColor: ['#ef4444', '#06b6d4'] }] } }); 
+    }
+    </script>
+</body>
+</html>
