@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BR3HEYH82C"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BR3HEYH82C');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Usinas Solares: Otimização de Investimentos</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { background-color: #030305; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+        h1, h2, h3, .cyber-font { font-family: 'Rajdhani', sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%; background: #00f0ff; cursor: pointer; margin-top: -8px; box-shadow: 0 0 10px #00f0ff; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 2px; }
+        input[type=range]:focus { outline: none; }
+        .neon-text { text-shadow: 0 0 5px rgba(0, 240, 255, 0.5); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10 px-4 relative bg-gradient-to-br from-slate-950 to-blue-950">
+    
+    <main class="w-full max-w-3xl glass-panel rounded-2xl p-6 md:p-10 relative">
+        <header class="text-center mb-8 border-b border-slate-800 pb-6">
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-2 cyber-font neon-text uppercase">Simulador de Usinas Solares: Otimização de Investimentos</h1>
+            <p class="text-cyan-400 text-sm tracking-widest cyber-font">MÓDULO B2B AUTÔNOMO v4.0</p>
+        </header>
+        
+        <div class="w-full min-h-[90px] bg-black/40 border border-slate-800 rounded mb-8 flex justify-center">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1243114536236949" data-ad-slot="1234567890" data-ad-format="auto"></ins>
+        </div>
+
+        <div id="form-area" class="space-y-6">
+            <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Potência da usina (W)</label>
+        <span class='text-sm font-mono text-white' id='potencia-val'>0</span>
+      </div>
+      <input type='range' id='potencia' min='0' max='1000000' step='1000' value='0' oninput="updateSliderValue('potencia')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Área de instalação (m²)</label>
+        <span class='text-sm font-mono text-white' id='area-val'>0</span>
+      </div>
+      <input type='range' id='area' min='0' max='100000' step='10' value='0' oninput="updateSliderValue('area')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Eficiência dos painéis solares (%)</label>
+        <span class='text-sm font-mono text-white' id='eficiencia-val'>0</span>
+      </div>
+      <input type='range' id='eficiencia' min='0' max='100' step='1' value='0' oninput="updateSliderValue('eficiencia')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de instalação (R$/W)</label>
+        <span class='text-sm font-mono text-white' id='custo-instalacao-val'>0</span>
+      </div>
+      <input type='range' id='custo-instalacao' min='0' max='10' step='0.1' value='0' oninput="updateSliderValue('custo-instalacao')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de manutenção anual (R$)</label>
+        <span class='text-sm font-mono text-white' id='custo-manutencao-val'>0</span>
+      </div>
+      <input type='range' id='custo-manutencao' min='0' max='100000' step='1000' value='0' oninput="updateSliderValue('custo-manutencao')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Vida útil da usina (anos)</label>
+        <span class='text-sm font-mono text-white' id='vida-uttil-val'>0</span>
+      </div>
+      <input type='range' id='vida-uttil' min='0' max='50' step='1' value='0' oninput="updateSliderValue('vida-uttil')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Taxa de desconto (%)</label>
+        <span class='text-sm font-mono text-white' id='taxa-desconto-val'>0</span>
+      </div>
+      <input type='range' id='taxa-desconto' min='0' max='100' step='1' value='0' oninput="updateSliderValue('taxa-desconto')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Preço da energia vendida (R$/kWh)</label>
+        <span class='text-sm font-mono text-white' id='preco-energia-val'>0</span>
+      </div>
+      <input type='range' id='preco-energia' min='0' max='10' step='0.1' value='0' oninput="updateSliderValue('preco-energia')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Irradiação solar média anual (kWh/m²/ano)</label>
+        <span class='text-sm font-mono text-white' id='irradiacao-solar-val'>0</span>
+      </div>
+      <input type='range' id='irradiacao-solar' min='0' max='1000' step='10' value='0' oninput="updateSliderValue('irradiacao-solar')">
+
+   </div>
+            <button id="btn-calc" class="w-full mt-6 bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-lg uppercase tracking-wider cyber-font transition-colors shadow-[0_0_15px_rgba(37,99,235,0.4)]">
+                PROCESSAR DADOS
+            </button>
+        </div>
+
+        <div id="loading-area" class="hidden py-16 text-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+            <p class="cyber-font text-cyan-400 animate-pulse">SINTETIZANDO INFORMAÇÕES GLOBAIS...</p>
+        </div>
+
+        <div id="result-area" class="hidden mt-6 opacity-0 transition-opacity duration-1000">
+            <div class="bg-black/50 border border-slate-700 p-6 rounded-xl text-center mb-6">
+                <h2 class="text-sm text-slate-400 uppercase cyber-font mb-2">Resultado Final</h2>
+                <div id="resultado-valor" class="text-4xl font-bold text-white cyber-font mb-4"></div>
+                <div class="w-full bg-slate-900 p-2 rounded-lg mb-4"><canvas id="grafico-ia"></canvas></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <a href="" target="_blank" class="block p-4 bg-emerald-900/20 border border-emerald-500/50 hover:bg-emerald-900/40 rounded-lg transition-colors">
+                    <span class="block text-xs text-emerald-400 font-bold cyber-font mb-1">ECONOMIA DE TAXAS</span>
+                    <span class="block text-sm text-white">Abra sua Conta Global (Sem IOF)</span>
+                </a>
+                
+                <a href="" target="_blank" class="block p-4 bg-blue-900/20 border border-blue-500/50 hover:bg-blue-900/40 rounded-lg transition-colors">
+                    <span class="block text-xs text-blue-400 font-bold cyber-font mb-1">HOSPEDAGEM CLOUD</span>
+                    <span class="block text-sm text-white">Ganhe US$ 200 em Créditos de Servidor</span>
+                </a>
+            </div>
+
+            <div class="w-full p-4 border border-slate-800 bg-black/30 rounded-lg text-center mb-6">
+                <span class="text-xs text-slate-500 block mb-2">Recomendação Técnica:</span>
+                <div class="h-[90px] bg-slate-900 flex items-center justify-center text-xs text-slate-600">[Espaço Banner Amazon]</div>
+            </div>
+
+            <button onclick="location.reload()" class="w-full py-3 border border-slate-700 text-slate-400 hover:text-white rounded-lg text-sm cyber-font">NOVA SIMULAÇÃO</button>
+        </div>
+    </main>
+
+    <script>
+        function updateSliderValue(id) { const s=document.getElementById(id), d=document.getElementById(id+'-val'); if(s&&d) d.innerText=s.value; }
+        document.getElementById('btn-calc').addEventListener('click', function() {
+            document.getElementById('form-area').classList.add('hidden');
+            document.getElementById('loading-area').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('loading-area').classList.add('hidden');
+                const r = document.getElementById('result-area');
+                r.classList.remove('hidden');
+                requestAnimationFrame(() => { r.style.opacity = '1'; try { executarCalculosIA(); } catch(e) { document.getElementById('resultado-valor').innerHTML="Erro."; } });
+            }, 4500);
+        });
+        var JAVASCRIPT_IA; function updateSliderValue(id) {
+      document.getElementById(id + '-val').innerHTML = document.getElementById(id).value;
+   }
+
+   function executarCalculosIA() {
+      let potencia = parseFloat(document.getElementById('potencia').value);
+      let area = parseFloat(document.getElementById('area').value);
+      let eficiencia = parseFloat(document.getElementById('eficiencia').value) / 100;
+      let custoInstalacao = parseFloat(document.getElementById('custo-instalacao').value);
+      let custoManutencao = parseFloat(document.getElementById('custo-manutencao').value);
+      let vidaUttil = parseFloat(document.getElementById('vida-uttil').value);
+      let taxaDesconto = parseFloat(document.getElementById('taxa-desconto').value) / 100;
+      let precoEnergia = parseFloat(document.getElementById('preco-energia').value);
+      let irradiacaoSolar = parseFloat(document.getElementById('irradiacao-solar').value);
+
+      let custoTotal = potencia * custoInstalacao;
+      let energiaGerada = potencia * eficiencia * irradiacaoSolar * vidaUttil;
+      let receitaTotal = energiaGerada * precoEnergia;
+      let custoManutencaoTotal = custoManutencao * vidaUttil;
+
+      let valorPresenteLiquido = 0;
+      for (let i = 0; i < vidaUttil; i++) {
+         let fluxoDeCaixa = (potencia * eficiencia * irradiacaoSolar * precoEnergia) - custoManutencao;
+         valorPresenteLiquido += fluxoDeCaixa / Math.pow(1 + taxaDesconto, i + 1);
+      }
+      valorPresenteLiquido -= custoTotal;
+
+      let taxaInternaRetorno = 0;
+      let payback = 0;
+
+      // Cálculo da Taxa Interna de Retorno (TIR)
+      let tir = 0;
+      for (let i = 0; i < 100; i++) {
+         let taxa = i / 100;
+         let valorPresenteLiquidoTir = 0;
+         for (let j = 0; j < vidaUttil; j++) {
+            let fluxoDeCaixaTir = (potencia * eficiencia * irradiacaoSolar * precoEnergia) - custoManutencao;
+            valorPresenteLiquidoTir += fluxoDeCaixaTir / Math.pow(1 + taxa, j + 1);
+         }
+         valorPresenteLiquidoTir -= custoTotal;
+         if (valorPresenteLiquidoTir > 0) {
+            taxaInternaRetorno = taxa;
+            break;
+         }
+      }
+
+      // Cálculo do Payback
+      let paybackAnos = 0;
+      let acumulado = -custoTotal;
+      for (let i = 0; i < vidaUttil; i++) {
+         let fluxoDeCaixaPayback = (potencia * eficiencia * irradiacaoSolar * precoEnergia) - custoManutencao;
+         acumulado += fluxoDeCaixaPayback;
+         if (acumulado > 0) {
+            payback = i + 1;
+            break;
+         }
+      }
+
+      document.getElementById('resultado-valor').innerHTML = 'VPL: R$ ' + valorPresenteLiquido.toFixed(2) + ', TIR: ' + (taxaInternaRetorno * 100).toFixed(2) + '%, Payback: ' + payback + ' anos';
+
+      new Chart(document.getElementById('grafico-ia'), {
+         type: 'doughnut',
+         data: {
+            labels: ['Custo Total', 'Receita Total'],
+            datasets: [{
+               data: [custoTotal, receitaTotal],
+               backgroundColor: ['#ef4444', '#06b6d4']
+            }]
+         }
+      });
+   }
+    </script>
+</body>
+</html>
