@@ -1,0 +1,320 @@
+import os, sys, json, requests, base64, re, unicodedata, time, random, urllib.parse
+from dotenv import load_dotenv
+
+print("\n" + "="*75)
+print(" 🌐 [PROJETO SINGULARIDADE] NÚCLEO SÍNCRONO GLOBAL (V. ABSOLUTA)")
+print("="*75)
+
+# ==========================================
+# 1. CARREGAMENTO DE INFRAESTRUTURA
+# ==========================================
+load_dotenv()
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_REPO = os.getenv("GITHUB_REPO")
+GITHUB_USER = os.getenv("GITHUB_USER")
+
+GROQ_KEYS = [os.getenv("GROQ_API_KEY_1"), os.getenv("GROQ_API_KEY_2"), os.getenv("GROQ_API_KEY_3")]
+GROQ_KEYS = [k for k in GROQ_KEYS if k and "COLE_" not in k]
+
+GEMINI_KEYS = [os.getenv("GEMINI_API_KEY_1"), os.getenv("GEMINI_API_KEY_2")]
+GEMINI_KEYS = [k for k in GEMINI_KEYS if k and "SUA_" not in k]
+
+ZYTE_KEY = os.getenv("ZYTE_API_KEY")
+MODELOS_GROQ = ["llama3-8b-8192", "llama-3.3-70b-versatile"]
+ARQUIVO_HISTORICO = "historico_nexus.txt"
+
+# ==========================================
+# 2. SISTEMA DE MEMÓRIA
+# ==========================================
+def limpar_nome_arquivo(nome):
+    nome = unicodedata.normalize('NFKD', str(nome)).encode('ASCII', 'ignore').decode('utf-8')
+    nome = re.sub(r'[^a-zA-Z0-9 ]', '', nome)
+    return nome.strip().lower().replace(" ", "_")[:60] + ".html"
+
+def extrair_json_seguro(texto):
+    try:
+        match = re.search(r'\{.*\}', texto, re.DOTALL)
+        if match: return json.loads(match.group(0))
+        return json.loads(texto)
+    except:
+        return None
+
+def ja_foi_criado(nicho):
+    if not os.path.exists(ARQUIVO_HISTORICO): return False
+    with open(ARQUIVO_HISTORICO, "r", encoding="utf-8") as f:
+        return nicho.lower() in f.read().lower()
+
+def registrar_criacao(nicho):
+    with open(ARQUIVO_HISTORICO, "a", encoding="utf-8") as f:
+        f.write(nicho + "\n")
+
+# ==========================================
+# 3. RASTREIO ZYTE / PREDITIVO
+# ==========================================
+def buscar_nichos_autonomos():
+    print("\n[👁️ ZYTE/SISTEMA] Rastreando o subconsciente B2B...")
+    prefixos = ["calculadora b2b para ", "simulador financeiro de ", "calculo de roi para ", "estimativa de custo industrial para "]
+    industrias = ["data centers", "logistica", "usinas solares", "agronegocio", "siderurgicas", "servidores cloud"]
+    nicho_combinado = random.choice(prefixos) + random.choice(industrias)
+
+    try:
+        if ZYTE_KEY and "COLE_" not in ZYTE_KEY:
+            query = urllib.parse.quote("calculadora de custo")
+            res = requests.get(f"http://suggestqueries.google.com/complete/search?client=firefox&q={query}", timeout=10) 
+            if res.status_code == 200:
+                for sug in json.loads(res.text)[1]:
+                    if len(sug) > 15 and not ja_foi_criado(sug):
+                        print(f"      [DADOS REAIS] Tendência: {sug}")
+                        return sug
+    except: pass
+    
+    while ja_foi_criado(nicho_combinado):
+        nicho_combinado = random.choice(prefixos) + random.choice(industrias) + f" {random.randint(2024, 2030)}"
+    
+    print(f"      [ALVO DEFINIDO] {nicho_combinado}")
+    return nicho_combinado
+
+# ==========================================
+# 4. INTELIGÊNCIA ARTIFICIAL (REDUNDÂNCIA ATIVA)
+# ==========================================
+def estrategista_reserva_groq(nicho):
+    print("      [⚠️ REDUNDÂNCIA] Acionando Groq para Estratégia...")
+    prompt = f"Analise o nicho B2B: '{nicho}'. Retorne ESTRITAMENTE JSON: {{\"titulo_seo\": \"Titulo\", \"formula\": \"Matematica\"}}"
+    for chave in GROQ_KEYS:
+        headers = {"Authorization": f"Bearer {chave}", "Content-Type": "application/json"}
+        for modelo in MODELOS_GROQ:
+            try:
+                res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json={"model": modelo, "messages": [{"role": "user", "content": prompt}], "temperature": 0.0}, timeout=15)
+                if res.status_code == 200:
+                    return extrair_json_seguro(res.json()['choices'][0]['message']['content'])
+            except: continue
+    return None
+
+def motor_gemini(nicho):
+    print("[1/4] 🧠 GEMINI: Processando Estratégia...")
+    if not GEMINI_KEYS: return estrategista_reserva_groq(nicho)
+        
+    prompt = f"Analise o nicho B2B: '{nicho}'. Retorne ESTRITAMENTE JSON: {{\"titulo_seo\": \"Titulo\", \"formula\": \"Matematica\"}}"
+    for chave in GEMINI_KEYS:
+        try:
+            res = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={chave}", json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=10)
+            if res.status_code == 200:
+                print("      [✓] Mapeamento Gemini Concluido!")
+                return extrair_json_seguro(res.json()['candidates'][0]['content']['parts'][0]['text'])
+        except: continue
+            
+    print("      [❌ ERRO] Gemini falhou. Ativando Plano B...")
+    return estrategista_reserva_groq(nicho)
+
+def motor_groq_template(estrategia):
+    print("[2/4] ⚡ GROQ: Injetando Código no Template...")
+    titulo = estrategia.get('titulo_seo', 'Ferramenta B2B')
+    formula = estrategia.get('formula', '')
+    
+    prompt = f"""
+    Crie o app B2B '{titulo}'. Regras: {formula}
+    Gere APENAS UM JSON (Sem crases, sem markdown) com 'inputs_html' (os sliders) e 'javascript' (a logica e grafico).
+    """
+    
+    for chave in GROQ_KEYS:
+        headers = {"Authorization": f"Bearer {chave}", "Content-Type": "application/json"}
+        payload = {"model": MODELOS_GROQ[0], "messages": [{"role": "user", "content": prompt}], "temperature": 0.0, "response_format": {"type": "json_object"}}
+        try:
+            res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
+            if res.status_code == 200:
+                print(f"      [✓] Código injetável gerado!")
+                return extrair_json_seguro(res.json()['choices'][0]['message']['content'])
+        except: continue
+                
+    return None
+
+# ==========================================
+# 5. MONTAGEM E DEPLOY
+# ==========================================
+def deploy_github(file_name, content):
+    print(f"[4/4] 🚀 GITHUB: Executando Deploy Global...")
+    if not GITHUB_TOKEN: return False
+    url = f"https://api.github.com/repos/{GITHUB_USER}/{GITHUB_REPO}/contents/{file_name}"
+    headers = {"Authorization": f"token {GITHUB_TOKEN}", "Accept": "application/vnd.github.v3+json"}
+    
+    req_get = requests.get(url, headers=headers)
+    sha = req_get.json().get('sha') if req_get.status_code == 200 else None
+    
+    payload = {"message": f"Deploy: {file_name}", "content": base64.b64encode(content.encode('utf-8')).decode('utf-8')}
+    if sha: payload["sha"] = sha
+        
+    res = requests.put(url, headers=headers, json=payload)
+    if res.status_code in [200, 201]:
+        print(f"\n      [✅ SUCESSO] ATIVO ONLINE: https://{GITHUB_USER}.github.io/{GITHUB_REPO}/{file_name}\n")
+        return True
+    return False
+
+def montar_e_publicar(pedido_original):
+    estrategia = motor_gemini(pedido_original)
+    if not estrategia: return False
+    
+    codigo = motor_groq_template(estrategia)
+    if not codigo: return False
+    
+    print("[3/4] ⚙️ SISTEMA: Montando Peças...")
+    try:
+        with open("template_base.html", "r", encoding="utf-8") as f: molde = f.read()
+        titulo = estrategia.get('titulo_seo', 'Ferramenta B2B')
+        html_final = molde.replace("Calculadora de Custo de Produção para Mineradoras 2028", titulo).replace("<div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Mão de Obra</label>
+        <span class='text-sm font-mono text-white' id='custo-mao-de-obra-val'>0</span>
+      </div>
+      <input type='range' id='custo-mao-de-obra' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('custo-mao-de-obra')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Equipamentos</label>
+        <span class='text-sm font-mono text-white' id='custo-equipamentos-val'>0</span>
+      </div>
+      <input type='range' id='custo-equipamentos' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('custo-equipamentos')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Energia</label>
+        <span class='text-sm font-mono text-white' id='custo-energia-val'>0</span>
+      </div>
+      <input type='range' id='custo-energia' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('custo-energia')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Taxa de Extração</label>
+        <span class='text-sm font-mono text-white' id='taxa-extracao-val'>0</span>
+      </div>
+      <input type='range' id='taxa-extracao' min='0' max='100' step='1' value='0' oninput="updateSliderValue('taxa-extracao')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Químicos</label>
+        <span class='text-sm font-mono text-white' id='custo-quimicos-val'>0</span>
+      </div>
+      <input type='range' id='custo-quimicos' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('custo-quimicos')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Taxa de Processamento</label>
+        <span class='text-sm font-mono text-white' id='taxa-processamento-val'>0</span>
+      </div>
+      <input type='range' id='taxa-processamento' min='0' max='100' step='1' value='0' oninput="updateSliderValue('taxa-processamento')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Combustível</label>
+        <span class='text-sm font-mono text-white' id='custo-combustivel-val'>0</span>
+      </div>
+      <input type='range' id='custo-combustivel' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('custo-combustivel')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Manutenção</label>
+        <span class='text-sm font-mono text-white' id='custo-manutencao-val'>0</span>
+      </div>
+      <input type='range' id='custo-manutencao' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('custo-manutencao')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Pedágio</label>
+        <span class='text-sm font-mono text-white' id='custo-pedagio-val'>0</span>
+      </div>
+      <input type='range' id='custo-pedagio' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('custo-pedagio')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Distância de Transporte</label>
+        <span class='text-sm font-mono text-white' id='distancia-transporte-val'>0</span>
+      </div>
+      <input type='range' id='distancia-transporte' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('distancia-transporte')">
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Tempo de Operação</label>
+        <span class='text-sm font-mono text-white' id='tempo-operacao-val'>0</span>
+      </div>
+      <input type='range' id='tempo-operacao' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('tempo-operacao')">
+
+   ", codigo.get('inputs_html', '')).replace("function updateSliderValue(id) { document.getElementById(id + '-val').innerHTML = document.getElementById(id).value; } 
+   function executarCalculosIA() { 
+      let custoMaoDeObra = parseInt(document.getElementById('custo-mao-de-obra').value); 
+      let custoEquipamentos = parseInt(document.getElementById('custo-equipamentos').value); 
+      let custoEnergia = parseInt(document.getElementById('custo-energia').value); 
+      let taxaExtracao = parseInt(document.getElementById('taxa-extracao').value) / 100; 
+      let custoQuimicos = parseInt(document.getElementById('custo-quimicos').value); 
+      let taxaProcessamento = parseInt(document.getElementById('taxa-processamento').value) / 100; 
+      let custoCombustivel = parseInt(document.getElementById('custo-combustivel').value); 
+      let custoManutencao = parseInt(document.getElementById('custo-manutencao').value); 
+      let custoPedagio = parseInt(document.getElementById('custo-pedagio').value); 
+      let distanciaTransporte = parseInt(document.getElementById('distancia-transporte').value); 
+      let tempoOperacao = parseInt(document.getElementById('tempo-operacao').value); 
+
+      let custoExtracao = (custoMaoDeObra + custoEquipamentos + custoEnergia) * taxaExtracao; 
+      let custoProcessamento = (custoMaoDeObra + custoEquipamentos + custoQuimicos) * taxaProcessamento; 
+      let custoTransporte = (custoCombustivel + custoManutencao + custoPedagio) * distanciaTransporte; 
+      let quantidadeMinerioExtraido = taxaExtracao * tempoOperacao; 
+
+      let custoTotal = (custoExtracao + custoProcessamento + custoTransporte) / quantidadeMinerioExtraido; 
+
+      document.getElementById('resultado-valor').innerHTML = 'R$ ' + custoTotal.toFixed(2); 
+
+      new Chart(document.getElementById('grafico-ia'), { 
+         type: 'doughnut', 
+         data: { 
+            labels: ['Custo de Extração', 'Custo de Processamento', 'Custo de Transporte'], 
+            datasets: [{ 
+               data: [custoExtracao, custoProcessamento, custoTransporte], 
+               backgroundColor: ['#ef4444', '#06b6d4', '#34C759'] 
+            }] 
+         } 
+      }); 
+   }", codigo.get('javascript', ''))
+        
+        file_name = limpar_nome_arquivo(titulo)
+        os.makedirs("deploy_pronto", exist_ok=True)
+        with open(f"deploy_pronto/{file_name}", "w", encoding="utf-8") as f: f.write(html_final)
+        
+        sucesso = deploy_github(file_name, html_final)
+        if sucesso: registrar_criacao(pedido_original)
+        return sucesso
+    except Exception as e:
+        print(f"      [❌ ERRO NA MONTAGEM] {e}")
+        return False
+
+# ==========================================
+# 6. O MOTOR INFINITO
+# ==========================================
+def modo_autonomo():
+    print("\n--- MODO OPERÁRIO INVISÍVEL ---")
+    
+    # 🚨 O SEGREDO DO SUCESSO ESTÁ AQUI:
+    # 600 segundos (10 minutos) é o tempo exato para a Groq recarregar os 300 tokens que você gastou no template.
+    TEMPO_DE_ESPERA = 600 
+    print(f"⚠️ Frequência ajustada para 1 site a cada {TEMPO_DE_ESPERA}s. Custo de tokens zerado.")
+    
+    contador = 1
+    while True:
+        try:
+            print(f"\n========== 🚀 INICIANDO CICLO {contador} ==========")
+            nicho_alvo = buscar_nichos_autonomos()
+            status = montar_e_publicar(nicho_alvo)
+            
+            if status:
+                print(f"      [ZzZ] Hibernando por {TEMPO_DE_ESPERA} segundos...")
+                time.sleep(TEMPO_DE_ESPERA)
+            else:
+                print("      [!] Falha. Tentando proximo nicho em 60s...")
+                time.sleep(60)
+                
+            contador += 1
+        except Exception as e:
+            print(f"\n      [⚠️ ALERTA] Erro: {e}. Reiniciando em 60s...")
+            time.sleep(60)
+
+if __name__ == "__main__":
+    while True:
+        try:
+            print("\n1. Comando Manual")
+            print("2. Comando Autônomo Global (Loop Infinito)")
+            escolha = input("Digite 1 ou 2: ")
+            
+            if escolha == '1': 
+                pedido = input("Nicho: ")
+                montar_e_publicar(pedido)
+            elif escolha == '2': 
+                modo_autonomo()
+                
+        except KeyboardInterrupt: sys.exit(0)
+        except Exception: pass
