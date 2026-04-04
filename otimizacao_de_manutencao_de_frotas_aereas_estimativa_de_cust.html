@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otimização de Manutenção de Frotas Aéreas: Estimativa de Custos Preditivos</title>
+    <meta name='impact-site-verification' value='87dfbff4-579f-47bf-86b3-02c8b95ccfa7'>
+    <meta name="google-site-verification" content="z_zJTZl_kiCY1HSdwsy833kdvKi7qYzNKiW807YbMk" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1243114536236949" crossorigin="anonymous"></script>
+    <style>
+        body { background-color: #020617; color: #f8fafc; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(51, 65, 85, 0.8); box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+        .cyber-range { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 4px; background: #334155; outline: none; transition: 0.2s; }
+        .cyber-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #0ea5e9; cursor: pointer; box-shadow: 0 0 15px #0ea5e9; border: 2px solid #fff; transition: 0.2s; }
+        .cyber-range::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        .btn-action { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); transition: all 0.3s ease; box-shadow: 0 0 20px rgba(14, 165, 233, 0.4); }
+        .btn-action:hover { box-shadow: 0 0 30px rgba(14, 165, 233, 0.8); transform: translateY(-2px); }
+        .loader-ring { width: 80px; height: 80px; border: 4px solid transparent; border-top-color: #0ea5e9; border-left-color: #0ea5e9; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        /* Scrollbar Elite */
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #020617; } ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-center items-center p-4">
+
+    <div id="fase-1" class="w-full max-w-6xl glass-panel rounded-3xl p-8 relative z-10">
+        <header class="text-center mb-10 border-b border-slate-800 pb-6">
+            <span class="inline-block py-1 px-3 rounded-full bg-emerald-900/30 text-emerald-400 border border-emerald-800 text-xs font-black tracking-widest mb-4 animate-pulse">SISTEMA PREDITIVO ONLINE</span>
+            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight" style="text-shadow: 0 0 20px rgba(255,255,255,0.1);">Otimização de Manutenção de Frotas Aéreas: Estimativa de Custos Preditivos</h1>
+            <p class="text-slate-400 mt-2 font-mono text-sm">Painel de Controle Tático B2B. Altere as variáveis para recalcular a rota de risco.</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-7 bg-slate-900/50 p-6 rounded-2xl border border-slate-800 shadow-inner overflow-y-auto max-h-[500px]" id="engine-inputs">
+                </div>
+
+            <div class="lg:col-span-5 flex flex-col justify-center items-center bg-slate-900/50 p-8 rounded-2xl border border-slate-800 shadow-inner">
+                <div class="relative w-full max-w-[250px] aspect-square mb-6"><canvas id="grafico-motor"></canvas></div>
+                <p class="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Impacto Financeiro Estimado</p>
+                <h2 id="valor-dinamico" class="text-5xl font-black text-emerald-400 transition-all duration-300">R$ 0,00</h2>
+            </div>
+        </div>
+
+        <div class="mt-10 flex justify-center">
+            <button onclick="ativarPurgatorio()" class="btn-action text-white font-black text-lg py-5 px-14 rounded-2xl uppercase tracking-widest w-full md:w-auto">
+                🔬 Iniciar Diagnóstico de Falhas
+            </button>
+        </div>
+    </div>
+
+    <div id="fase-2" style="display:none;" class="w-full max-w-4xl glass-panel rounded-3xl p-12 text-center flex-col items-center">
+        <h2 class="text-3xl font-black text-cyan-400 mb-8 animate-pulse">CRUZANDO DADOS INTELIGENTES...</h2>
+        <div class="loader-ring mx-auto mb-8"></div>
+        <p id="loading-txt" class="text-slate-400 font-mono text-sm mb-8 h-6">Acessando nós de rede globais...</p>
+        
+        <div class="w-full bg-slate-900 border border-slate-700 rounded-xl h-[280px] flex items-center justify-center overflow-hidden shadow-inner">
+            <ins class="adsbygoogle" style="display:block; width:100%; height:100%;" data-ad-client="ca-pub-1243114536236949" data-ad-slot="AUTO_SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        </div>
+    </div>
+
+    <div id="fase-3" style="display:none;" class="w-full max-w-2xl glass-panel rounded-3xl p-10 text-center">
+        <div class="w-24 h-24 bg-rose-900/20 border border-rose-500/50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(225,29,72,0.3)]">
+            <svg class="w-10 h-10 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        </div>
+        <h2 class="text-3xl font-black text-white mb-4">Laudo Interrompido (99%)</h2>
+        <p class="text-slate-400 mb-8 leading-relaxed">Nossos algoritmos identificaram gargalos invisíveis que estão drenando a liquidez da sua operação. Para liberar o dossiê completo de mitigação, autentique seu acesso corporativo.</p>
+        
+        <input type="email" id="email-corporativo" placeholder="email@suaempresa.com.br" class="w-full bg-slate-900 border border-slate-700 text-white px-6 py-4 rounded-xl focus:outline-none focus:border-cyan-500 mb-4 font-mono transition-colors">
+        <button onclick="dispararWebhook()" class="btn-action w-full text-white font-black py-4 px-6 rounded-xl mb-8">
+            DESBLOQUEAR DOSSIÊ MATEMÁTICO
+        </button>
+
+        <div class="flex items-center gap-4 mb-8 opacity-40">
+            <div class="h-px bg-slate-600 flex-1"></div><span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Ou resolva agora com</span><div class="h-px bg-slate-600 flex-1"></div>
+        </div>
+
+        <a href="https://www.google.com" target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-500 text-white font-black py-4 px-6 rounded-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+            Conheça Soluções Corporativas Avançadas
+        </a>
+    </div>
+
+    <script>
+        // Os dados brutos injetados pelo Python (Matemática Pura)
+        const ESTRUTURA_IA = {"variaveis": [{"id": "v1", "nome": "Custo de M\u00e3o de Obra", "min": 100, "max": 10000, "val_padrao": 500}, {"id": "v2", "nome": "Custo de Pe\u00e7as", "min": 100, "max": 10000, "val_padrao": 500}, {"id": "v3", "nome": "Custo de Equipamentos", "min": 100, "max": 10000, "val_padrao": 500}, {"id": "v4", "nome": "Frequ\u00eancia de Manuten\u00e7\u00e3o", "min": 1, "max": 12, "val_padrao": 4}, {"id": "v5", "nome": "Frequ\u00eancia de Falhas", "min": 1, "max": 12, "val_padrao": 2}, {"id": "v6", "nome": "Custo de Combust\u00edvel", "min": 100, "max": 10000, "val_padrao": 500}, {"id": "v7", "nome": "Custo de Aluguel", "min": 100, "max": 10000, "val_padrao": 500}, {"id": "v8", "nome": "Custo de Seguros", "min": 100, "max": 10000, "val_padrao": 500}, {"id": "v9", "nome": "Tempo de Inatividade", "min": 1, "max": 30, "val_padrao": 5}, {"id": "v10", "nome": "N\u00famero de Aeronaves", "min": 1, "max": 100, "val_padrao": 10}], "formula": "( (v1 + v2 + v3) * v4 + (v1 + v2 + v3) * v5 + (v6 + v7 + v8) * v9 ) / v10"};
+        
+        // Variaveis globais de controle
+        let chartInstance = null;
+        let estadoVariaveis = {};
+
+        // INICIALIZAÇÃO BLINDADA
+        function inicializarMotor() {
+            const container = document.getElementById('engine-inputs');
+            
+            // Tratamento de Erro (Probabilidade de falha na IA)
+            if(!ESTRUTURA_IA || !ESTRUTURA_IA.variaveis) {
+                container.innerHTML = '<p class="text-rose-400 font-mono">Erro de Matriz: Algoritmos insuficientes. Recarregue a sessão.</p>';
+                return;
+            }
+
+            // Desenhando o 'Videogame' dinamicamente
+            ESTRUTURA_IA.variaveis.forEach(v => {
+                estadoVariaveis[v.id] = v.val_padrao; // Registra estado inicial
+                
+                const htmlBloco = 
+                <div class="mb-6 p-4 bg-slate-800/40 rounded-xl border border-slate-700 hover:border-cyan-800 transition-colors">
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="text-xs font-bold text-slate-300 uppercase tracking-wider">\</label>
+                        <span id="display_\" class="text-sm font-mono text-cyan-400 font-bold">\</span>
+                    </div>
+                    <input type="range" id="\" min="\" max="\" value="\" class="cyber-range" oninput="atualizarEstado('\', this.value)">
+                </div>;
+                container.innerHTML += htmlBloco;
+            });
+
+            iniciarGrafico();
+            processarMatematica();
+        }
+
+        // MOTOR DE CÁLCULO SEGURO
+        function atualizarEstado(id, novoValor) {
+            estadoVariaveis[id] = parseFloat(novoValor);
+            document.getElementById('display_' + id).innerText = formatarNumero(novoValor);
+            processarMatematica();
+        }
+
+        function processarMatematica() {
+            try {
+                // Monta a equação baseada na matriz enviada pela IA
+                let equacao = ESTRUTURA_IA.formula;
+                for (let key in estadoVariaveis) {
+                    // Substitui a chave (ex: v1) pelo numero real na formula
+                    equacao = equacao.replace(new RegExp('\\b' + key + '\\b', 'g'), estadoVariaveis[key]);
+                }
+                
+                // Calculo estrito
+                let resultadoBruto = Function('"use strict";return (' + equacao + ')')();
+                
+                // Seguranca contra infinito ou NaN
+                if(!isFinite(resultadoBruto)) resultadoBruto = 0;
+
+                // Animação visual do numero e grafico
+                document.getElementById('valor-dinamico').innerText = 'R$ ' + formatarNumero(resultadoBruto);
+                document.getElementById('valor-dinamico').classList.add('text-cyan-400');
+                setTimeout(() => document.getElementById('valor-dinamico').classList.remove('text-cyan-400'), 150);
+                
+                atualizarGrafico(resultadoBruto);
+
+            } catch (erro) {
+                // Se a IA errar feio na matemática, ele não quebra o site, ele mostra 0
+                console.error("Falha de equação algorítmica:", erro);
+                document.getElementById('valor-dinamico').innerText = "R$ ---";
+            }
+        }
+
+        function formatarNumero(num) { return Number(num).toLocaleString('pt-BR', { maximumFractionDigits: 2 }); }
+
+        function iniciarGrafico() {
+            const ctx = document.getElementById('grafico-motor').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: { labels: ['Custo', 'Risco', 'Projeção'], datasets: [{ data: [33, 33, 33], backgroundColor: ['#0ea5e9', '#3b82f6', '#1e293b'], borderWidth: 0 }] },
+                options: { responsive: true, cutout: '80%', plugins: { legend: { display: false } }, animation: { animateScale: true } }
+            });
+        }
+
+        function atualizarGrafico(valorFinal) {
+            if(!chartInstance) return;
+            // Efeito visual gamificado no grafico
+            const variavelRisco = (valorFinal * 0.3) % 100;
+            chartInstance.data.datasets[0].data = [100 - variavelRisco, variavelRisco, 50];
+            chartInstance.update();
+        }
+
+        // AS 3 FASES PSICOLÓGICAS (O ZEIGARNIK)
+        function ativarPurgatorio() {
+            document.getElementById('fase-1').style.display = 'none';
+            document.getElementById('fase-2').style.display = 'flex';
+            
+            // Empurra a impressao pro AdSense
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+
+            const mensagens = ["Lendo matriz estrutural...", "Comparando com Big Data...", "Sintetizando laudo final..."];
+            let i = 0;
+            const intervalo = setInterval(() => { document.getElementById('loading-txt').innerText = mensagens[i]; i++; if(i >= mensagens.length) clearInterval(intervalo); }, 1500);
+
+            // Exatos 4.8 Segundos
+            setTimeout(() => {
+                document.getElementById('fase-2').style.display = 'none';
+                document.getElementById('fase-3').style.display = 'block';
+            }, 4800);
+        }
+
+        function dispararWebhook() {
+            const email = document.getElementById('email-corporativo').value;
+            if(!email || !email.includes('@')) return alert('Informe um e-mail corporativo autêntico.');
+            
+            fetch('https://hook.eu1.make.com/ex61bvef6ijnzc5tb6k4aelje9qwxl1m', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, tracker: window.location.href, timestamp: new Date().toISOString() })
+            }).then(() => {
+                document.getElementById('fase-3').innerHTML = '<div class="p-8"><div class="w-20 h-20 bg-emerald-900/30 border border-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6"><svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div><h2 class="text-3xl font-black text-white mb-4">Acesso Homologado</h2><p class="text-slate-400">O PDF com a matemática revelada foi despachado para a sua caixa de entrada.</p></div>';
+            });
+        }
+
+        // Chama o motor na inicialização
+        window.onload = inicializarMotor;
+    </script>
+</body>
+</html>
