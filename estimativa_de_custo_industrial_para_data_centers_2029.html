@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estimativa de Custo Industrial para Data Centers 2029</title>
+    <meta name='impact-site-verification' value='87dfbff4-579f-47bf-86b3-02c8b95ccfa7'>
+    <meta name="google-site-verification" content="z_zJTZl_kiCY1HSdwsy833kdvKi7qYzNKiW807YbMk" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1243114536236949" crossorigin="anonymous"></script>
+    <style>
+        body { background-color: #030712; color: #e5e7eb; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .cyber-panel { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(55, 65, 81, 0.8); box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        .btn-glow { background: #0ea5e9; transition: all 0.3s; }
+        .btn-glow:hover { box-shadow: 0 0 20px #0ea5e9; transform: translateY(-2px); }
+        /* Animacao do Loader Futurista */
+        .loader-circle { width: 100px; height: 100px; border: 4px solid #1f2937; border-top: 4px solid #0ea5e9; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Scrollbar hacker */
+        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #030712; } ::-webkit-scrollbar-thumb { background: #374151; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <div id="fase-1-interacao" class="w-full max-w-6xl cyber-panel rounded-2xl p-8 relative z-10">
+        <div class="text-center mb-10 border-b border-gray-800 pb-6">
+            <div class="inline-block px-3 py-1 bg-cyan-900/30 text-cyan-400 border border-cyan-800 rounded-full text-xs font-bold tracking-widest mb-4">SISTEMA ATIVO</div>
+            <h1 class="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight" style="text-shadow: 0 0 15px rgba(255,255,255,0.1);">Estimativa de Custo Industrial para Data Centers 2029</h1>
+            <p class="text-gray-400">Configure as matrizes abaixo. A inteligência artificial responderá em tempo real.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div id="controles-ia" class="space-y-6 bg-[#0B1120] p-6 rounded-xl border border-gray-800 shadow-inner">
+                <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Equipamentos</label>
+        <span class='text-sm font-mono text-white' id='custo_equipamentos-val'>0</span>
+      </div>
+      <input type='range' id='custo_equipamentos' min='0' max='100000' step='1' value='0' oninput="updateSliderValue('custo_equipamentos')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Infraestrutura</label>
+        <span class='text-sm font-mono text-white' id='custo_infraestrutura-val'>0</span>
+      </div>
+      <input type='range' id='custo_infraestrutura' min='0' max='100000' step='1' value='0' oninput="updateSliderValue('custo_infraestrutura')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Manutenção</label>
+        <span class='text-sm font-mono text-white' id='custo_manutencao-val'>0</span>
+      </div>
+      <input type='range' id='custo_manutencao' min='0' max='100000' step='1' value='0' oninput="updateSliderValue('custo_manutencao')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Energia</label>
+        <span class='text-sm font-mono text-white' id='custo_energia-val'>0</span>
+      </div>
+      <input type='range' id='custo_energia' min='0' max='100000' step='1' value='0' oninput="updateSliderValue('custo_energia')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Taxa de Inflação</label>
+        <span class='text-sm font-mono text-white' id='taxa_inflacao-val'>0</span>
+      </div>
+      <input type='range' id='taxa_inflacao' min='0' max='100' step='1' value='0' oninput="updateSliderValue('taxa_inflacao')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Mão de Obra</label>
+        <span class='text-sm font-mono text-white' id='custo_mao_obra-val'>0</span>
+      </div>
+      <input type='range' id='custo_mao_obra' min='0' max='100000' step='1' value='0' oninput="updateSliderValue('custo_mao_obra')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Treinamento</label>
+        <span class='text-sm font-mono text-white' id='custo_treinamento-val'>0</span>
+      </div>
+      <input type='range' id='custo_treinamento' min='0' max='100000' step='1' value='0' oninput="updateSliderValue('custo_treinamento')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Taxa de Rotatividade</label>
+        <span class='text-sm font-mono text-white' id='taxa_rotatividade-val'>0</span>
+      </div>
+      <input type='range' id='taxa_rotatividade' min='0' max='100' step='1' value='0' oninput="updateSliderValue('taxa_rotatividade')">
+    </div>
+            </div>
+            
+            <div class="flex flex-col justify-center items-center bg-[#0B1120] p-8 rounded-xl border border-gray-800 shadow-inner">
+                <canvas id="grafico-ia" class="w-full max-w-[300px] mb-6"></canvas>
+                <h2 id="resultado-valor" class="text-5xl font-black text-emerald-400 mb-2">R$ 0,00</h2>
+                <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">Projeção Híbrida</p>
+            </div>
+        </div>
+
+        <div class="mt-10 flex justify-center">
+            <button onclick="dispararPurgatorio()" class="btn-glow text-white font-black text-lg py-4 px-12 rounded-xl uppercase tracking-wider w-full md:w-auto">
+                Executar Diagnóstico Profundo
+            </button>
+        </div>
+    </div>
+
+    <div id="fase-2-loading" style="display:none;" class="w-full max-w-4xl cyber-panel rounded-2xl p-12 text-center flex-col items-center">
+        <h2 class="text-3xl font-black text-cyan-400 mb-6 animate-pulse">PROCESSANDO ALGORITMOS B2B...</h2>
+        <div class="loader-circle mx-auto mb-8"></div>
+        <p id="loading-text" class="text-gray-400 font-mono text-sm mb-8 h-6">Conectando aos servidores globais...</p>
+        
+        <div class="w-full bg-gray-900 border border-gray-700 rounded-lg h-[250px] flex items-center justify-center overflow-hidden">
+            <ins class="adsbygoogle" style="display:block; width:100%; height:100%;" data-ad-client="ca-pub-1243114536236949" data-ad-slot="AUTO_SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        </div>
+    </div>
+
+    <div id="fase-3-captura" style="display:none;" class="w-full max-w-2xl cyber-panel rounded-2xl p-10 text-center">
+        <div class="w-20 h-20 bg-red-900/30 border border-red-500/50 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-red-500 font-black text-3xl">!</span>
+        </div>
+        <h2 class="text-3xl font-black text-white mb-2">Análise Pausada em 99%</h2>
+        <p class="text-gray-400 mb-8">Nossa IA detectou gargalos críticos na sua operação que geram passivo financeiro oculto. Para ler o laudo completo e acessar a tecnologia de mitigação, confirme seu acesso.</p>
+        
+        <input type="email" id="lead-email" placeholder="Seu E-mail Corporativo..." class="w-full bg-gray-900 border border-gray-700 text-white px-6 py-4 rounded-xl focus:outline-none focus:border-cyan-500 mb-4 font-mono">
+        <button onclick="enviarLead()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 px-6 rounded-xl transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] mb-8">
+            DESBLOQUEAR LAUDO TÉCNICO
+        </button>
+
+        <div class="flex items-center gap-4 mb-8 opacity-50">
+            <div class="h-px bg-gray-600 flex-1"></div><span class="text-xs font-bold uppercase tracking-widest text-gray-400">Ou</span><div class="h-px bg-gray-600 flex-1"></div>
+        </div>
+
+        <p class="text-xs text-gray-500 mb-3 uppercase tracking-widest font-bold">Resolva agora com nosso parceiro homologado:</p>
+        <a href="{{LINK_CPA}}" target="_blank" onclick="document.getElementById('fase-3-captura').innerHTML='<h2 class=\'text-2xl text-emerald-400 font-black mt-10\'>Redirecionando para o parceiro seguro...</h2>';" class="block w-full bg-emerald-600 hover:bg-emerald-500 text-white font-black py-4 px-6 rounded-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+            {{CTA_CPA}}
+        </a>
+    </div>
+
+    <div class="w-full text-center mt-12 mb-4 text-xs text-gray-600 font-mono">
+        <p>Desenvolvido via Singularidade B2B.</p>
+        <a href="https://www.linkedin.com/in/leonardo-jesus-b14ab1400/" target="_blank" class="hover:text-cyan-500">Inspecionado por Leonardo Jesus - Conectar no LinkedIn</a>
+    </div>
+
+    <script>
+        function updateSliderValue(id) { document.getElementById(id + '-val').innerHTML = document.getElementById(id).value; } 
+   function executarCalculosIA() { 
+     let custo_equipamentos = parseInt(document.getElementById('custo_equipamentos').value); 
+     let custo_infraestrutura = parseInt(document.getElementById('custo_infraestrutura').value); 
+     let custo_manutencao = parseInt(document.getElementById('custo_manutencao').value); 
+     let custo_energia = parseInt(document.getElementById('custo_energia').value); 
+     let taxa_inflacao = parseInt(document.getElementById('taxa_inflacao').value) / 100; 
+     let custo_mao_obra = parseInt(document.getElementById('custo_mao_obra').value); 
+     let custo_treinamento = parseInt(document.getElementById('custo_treinamento').value); 
+     let taxa_rotatividade = parseInt(document.getElementById('taxa_rotatividade').value) / 100; 
+     let resultado = (custo_equipamentos + custo_infraestrutura + custo_manutencao + custo_energia) * (1 + taxa_inflacao) + (custo_mao_obra + custo_treinamento) * (1 + taxa_rotatividade); 
+     document.getElementById('resultado-valor').innerHTML = 'R$ ' + resultado.toFixed(2); 
+     new Chart(document.getElementById('grafico-ia'), { type: 'doughnut', data: { labels: ['Custo Total', 'Outros'], datasets: [{ data: [resultado, 1000000 - resultado], backgroundColor: ['#ef4444', '#06b6d4'] }] } }); 
+   }
+
+        // A Mágica do Funil Zeigarnik (Engenharia de Retenção)
+        function dispararPurgatorio() {
+            // Oculta Fase 1 e Mostra Fase 2
+            document.getElementById('fase-1-interacao').style.display = 'none';
+            document.getElementById('fase-2-loading').style.display = 'flex';
+            
+            // Empurra o anuncio do AdSense pro Google
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+
+            // Troca os textos de suspense
+            const textos = ["Acessando bancos de dados de concorrentes...", "Calculando perdas em tempo real...", "Estruturando laudo de mitigação..."];
+            let i = 0;
+            const interval = setInterval(() => {
+                document.getElementById('loading-text').innerText = textos[i];
+                i++;
+                if(i >= textos.length) clearInterval(interval);
+            }, 1500);
+
+            // Exatos 4.8 Segundos depois, vai para o Xeque-Mate
+            setTimeout(() => {
+                document.getElementById('fase-2-loading').style.display = 'none';
+                document.getElementById('fase-3-captura').style.display = 'block';
+            }, 4800);
+        }
+
+        function enviarLead() {
+            const email = document.getElementById('lead-email').value;
+            if(!email) return alert('Insira um e-mail válido para liberar o laudo.');
+            
+            // Webhook Make.com INTACTO
+            fetch('https://hook.eu1.make.com/ex61bvef6ijnzc5tb6k4aelje9qwxl1m', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, site: window.location.href, data: new Date().toISOString() })
+            }).then(() => {
+                document.getElementById('fase-3-captura').innerHTML = '<div class="p-10"><h2 class="text-3xl font-black text-emerald-400 mb-4">Acesso Liberado!</h2><p class="text-gray-300">Enviamos o PDF com o detalhamento técnico para o seu e-mail agora mesmo.</p></div>';
+            });
+        }
+    </script>
+</body>
+</html>
