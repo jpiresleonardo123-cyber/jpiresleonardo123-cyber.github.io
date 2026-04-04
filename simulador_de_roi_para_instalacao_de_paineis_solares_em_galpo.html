@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de ROI para Instalação de Painéis Solares em Galpões Industriais</title>
+    
+    <meta name='impact-site-verification' value='87dfbff4-579f-47bf-86b3-02c8b95ccfa7'>
+    <meta name="google-site-verification" content="z_zJTZl_kiCY1HSdwsy833kdvKi7qYzNKiW807YbMk" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1243114536236949" crossorigin="anonymous"></script>
+
+    <style>
+        body { background-color: #030712; color: #e5e7eb; font-family: 'Inter', sans-serif; }
+        .glass-container {
+            background: linear-gradient(145deg, rgba(17,24,39,0.8) 0%, rgba(3,7,18,0.9) 100%);
+            border: 1px solid rgba(55,65,81,0.5);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+        /* Sliders de Alto Engajamento */
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%; background: #06b6d4; cursor: pointer; box-shadow: 0 0 10px #06b6d4; margin-top: -8px; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: #374151; border-radius: 5px; }
+        input[type=range]:focus { outline: none; }
+        .pulse-text { animation: pulse-shadow 2s infinite; }
+        @keyframes pulse-shadow { 0% { text-shadow: 0 0 10px rgba(16,185,129,0.2); } 50% { text-shadow: 0 0 25px rgba(16,185,129,0.8); } 100% { text-shadow: 0 0 10px rgba(16,185,129,0.2); } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-center items-center p-4">
+    
+    <div class="glass-container w-full max-w-5xl rounded-2xl p-8 md:p-12 relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-3/4 h-32 bg-cyan-900 blur-[100px] opacity-30 pointer-events-none"></div>
+
+        <div class="relative z-10 text-center mb-10">
+            <h1 class="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Simulador de ROI para Instalação de Painéis Solares em Galpões Industriais</h1>
+            <p class="text-gray-400 text-sm">Ajuste as variáveis abaixo. Os cálculos são atualizados em tempo real pela I.A.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div id="controles-ia" class="space-y-6 bg-gray-900/50 p-6 rounded-xl border border-gray-800">
+                <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Potência do Sistema Solar (W)</label>
+        <span class='text-sm font-mono text-white' id='potencia-val'>0</span>
+      </div>
+      <input type='range' id='potencia' min='0' max='100000' step='1' value='0' oninput='updateSliderValue("potencia")'>
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Horas de Sol por Ano (h)</label>
+        <span class='text-sm font-mono text-white' id='horas-sol-val'>0</span>
+      </div>
+      <input type='range' id='horas-sol' min='0' max='4000' step='1' value='0' oninput='updateSliderValue("horas-sol")'>
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Eficiência do Sistema (%)</label>
+        <span class='text-sm font-mono text-white' id='eficiencia-val'>0</span>
+      </div>
+      <input type='range' id='eficiencia' min='0' max='100' step='1' value='0' oninput='updateSliderValue("eficiencia")'>
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Consumo de Energia Anual sem Sistema Solar (Wh)</label>
+        <span class='text-sm font-mono text-white' id='consumo-energia-val'>0</span>
+      </div>
+      <input type='range' id='consumo-energia' min='0' max='1000000' step='1' value='0' oninput='updateSliderValue("consumo-energia")'>
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Excedente de Energia Gerada (Wh)</label>
+        <span class='text-sm font-mono text-white' id='excedente-energia-val'>0</span>
+      </div>
+      <input type='range' id='excedente-energia' min='0' max='1000000' step='1' value='0' oninput='updateSliderValue("excedente-energia")'>
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Tarifa de Venda de Energia (R$/Wh)</label>
+        <span class='text-sm font-mono text-white' id='tarifa-venda-val'>0</span>
+      </div>
+      <input type='range' id='tarifa-venda' min='0' max='10' step='0.01' value='0' oninput='updateSliderValue("tarifa-venda")'>
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo dos Painéis Solares (R$)</label>
+        <span class='text-sm font-mono text-white' id='custo-paineis-val'>0</span>
+      </div>
+      <input type='range' id='custo-paineis' min='0' max='1000000' step='1' value='0' oninput='updateSliderValue("custo-paineis")'>
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo da Instalação (R$)</label>
+        <span class='text-sm font-mono text-white' id='custo-instalacao-val'>0</span>
+      </div>
+      <input type='range' id='custo-instalacao' min='0' max='1000000' step='1' value='0' oninput='updateSliderValue("custo-instalacao")'>
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Outros Custos (R$)</label>
+        <span class='text-sm font-mono text-white' id='outros-custos-val'>0</span>
+      </div>
+      <input type='range' id='outros-custos' min='0' max='1000000' step='1' value='0' oninput='updateSliderValue("outros-custos")'>
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Manutenção dos Painéis Solares (R$/ano)</label>
+        <span class='text-sm font-mono text-white' id='manutencao-paineis-val'>0</span>
+      </div>
+      <input type='range' id='manutencao-paineis' min='0' max='100000' step='1' value='0' oninput='updateSliderValue("manutencao-paineis")'>
+
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Manutenção da Instalação (R$/ano)</label>
+        <span class='text-sm font-mono text-white' id='manutencao-instalacao-val'>0</span>
+      </div>
+      <input type='range' id='manutencao-instalacao' min='0' max='100000' step='1' value='0' oninput='updateSliderValue("manutencao-instalacao")'>
+   </div>
+            </div>
+            <div class="flex flex-col justify-center items-center bg-gray-900/50 p-8 rounded-xl border border-gray-800">
+                <div class="relative w-full max-w-[280px] aspect-square mb-6">
+                    <canvas id="grafico-ia"></canvas>
+                </div>
+                <h2 id="resultado-valor" class="text-5xl font-black text-green-400 pulse-text">R$ 0,00</h2>
+                <p class="text-xs text-gray-500 mt-3 uppercase tracking-widest font-bold">Projeção Dinâmica</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-8 text-center text-gray-600 text-xs font-mono">
+        <p>Projeto Singularidade B2B.</p>
+        <a href="https://www.linkedin.com/in/leonardo-jesus-b14ab1400/" target="_blank" class="hover:text-cyan-500 transition-colors">Inspecionado por Leonardo Jesus - Conectar no LinkedIn</a>
+    </div>
+
+    <div id="lead-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(3,7,18,0.95); backdrop-filter: blur(8px); z-index:9999; justify-content:center; align-items:center; padding: 20px;">
+        <div style="background:#0f172a; padding:40px; border-radius:16px; max-width:480px; width: 100%; text-align:center; border: 1px solid #1e293b; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 1);">
+            
+            <h3 class="text-2xl font-bold text-white mb-2">Relatório Estratégico</h3>
+            <p class="text-gray-400 text-sm mb-8">A análise foi concluída. Para liberar o detalhamento matemático e as recomendações de mitigação, confirme seu acesso abaixo.</p>
+            
+            <input type="email" id="lead-email" placeholder="Digite seu e-mail corporativo..." class="w-full px-4 py-3 mb-4 bg-gray-900 border border-gray-700 text-white rounded-lg focus:outline-none focus:border-cyan-500 transition-colors placeholder-gray-600">
+            <button onclick="enviarLead()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg transition-colors mb-6 shadow-[0_0_15px_rgba(37,99,235,0.5)]">
+                DESBLOQUEAR DADOS TÉCNICOS
+            </button>
+            
+            <div class="relative flex py-2 items-center mb-6">
+                <div class="flex-grow border-t border-gray-800"></div>
+                <span class="flex-shrink-0 mx-4 text-gray-500 text-xs font-bold uppercase">Ou</span>
+                <div class="flex-grow border-t border-gray-800"></div>
+            </div>
+            
+            <p class="text-gray-500 text-xs mb-3">Resolva a raiz do problema com a tecnologia parceira:</p>
+            <a href="{{LINK_CPA}}" target="_blank" onclick="document.getElementById('lead-overlay').style.display = 'none';" class="block w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                {{CTA_CPA}}
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function updateSliderValue(id) { document.getElementById(id + '-val').innerHTML = document.getElementById(id).value; } 
+   function executarCalculosIA() { 
+     let potencia = parseFloat(document.getElementById('potencia').value); 
+     let horasSol = parseFloat(document.getElementById('horas-sol').value); 
+     let eficiencia = parseFloat(document.getElementById('eficiencia').value) / 100; 
+     let consumoEnergia = parseFloat(document.getElementById('consumo-energia').value); 
+     let excedenteEnergia = parseFloat(document.getElementById('excedente-energia').value); 
+     let tarifaVenda = parseFloat(document.getElementById('tarifa-venda').value); 
+     let custoPaineis = parseFloat(document.getElementById('custo-paineis').value); 
+     let custoInstalacao = parseFloat(document.getElementById('custo-instalacao').value); 
+     let outrosCustos = parseFloat(document.getElementById('outros-custos').value); 
+     let manutencaoPaineis = parseFloat(document.getElementById('manutencao-paineis').value); 
+     let manutencaoInstalacao = parseFloat(document.getElementById('manutencao-instalacao').value); 
+
+     let economiaEnergiaAnual = (potencia * horasSol * eficiencia) - consumoEnergia; 
+     let vendaExcedenteEnergia = excedenteEnergia * tarifaVenda; 
+     let custoInstalacaoTotal = custoPaineis + custoInstalacao + outrosCustos; 
+     let manutencaoAnual = manutencaoPaineis + manutencaoInstalacao; 
+
+     let roi = (economiaEnergiaAnual + vendaExcedenteEnergia) / (custoInstalacaoTotal + manutencaoAnual) * 100; 
+
+     document.getElementById('resultado-valor').innerHTML = 'R$ ' + roi.toFixed(2); 
+
+     new Chart(document.getElementById('grafico-ia'), { 
+       type: 'doughnut', 
+       data: { 
+         labels: ['ROI', 'Custo'], 
+         datasets: [{ 
+           data: [roi, 100 - roi], 
+           backgroundColor: ['#ef4444', '#06b6d4'] 
+         }] 
+       } 
+     }); 
+   }
+        // Tempo exato para o AdSense registrar a visão e gerar retenção
+        setTimeout(() => { document.getElementById('lead-overlay').style.display = 'flex'; }, 5500);
+        
+        function enviarLead() {
+            const email = document.getElementById('lead-email').value;
+            if(!email) return alert('Por favor, insira um e-mail válido.');
+            fetch('https://hook.eu1.make.com/ex61bvef6ijnzc5tb6k4aelje9qwxl1m', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, site: window.location.href, data: new Date().toISOString() })
+            }).then(() => {
+                alert('Acesso liberado! Verifique seu e-mail em instantes.');
+                document.getElementById('lead-overlay').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
