@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculo de ROI para Exportacao Maritima: Modelo 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1243114536236949" crossorigin="anonymous"></script>
+    <style>
+        body { background-color: #020617; color: #f8fafc; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(51, 65, 85, 0.8); }
+        .cyber-range { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 4px; background: #334155; outline: none; transition: 0.2s; }
+        .cyber-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #0ea5e9; cursor: pointer; border: 2px solid #fff; }
+        .btn-action { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); transition: all 0.3s ease; }
+        .btn-action:hover { box-shadow: 0 0 30px rgba(14, 165, 233, 0.8); transform: translateY(-2px); }
+        .loader-ring { width: 80px; height: 80px; border: 4px solid transparent; border-top-color: #0ea5e9; border-left-color: #0ea5e9; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-center items-center p-4">
+
+    <div id="fase-1" class="w-full max-w-6xl glass-panel rounded-3xl p-8 relative z-10">
+        <header class="text-center mb-10 border-b border-slate-800 pb-6">
+            <span class="inline-block py-1 px-3 rounded-full bg-emerald-900/30 text-emerald-400 border border-emerald-800 text-xs font-black tracking-widest mb-4">SISTEMA PREDITIVO ONLINE</span>
+            <h1 class="text-4xl font-black text-white">Calculo de ROI para Exportacao Maritima: Modelo 2026</h1>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+                <div id="inputs-container"><div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Receita Total</label>
+        <span class='text-sm font-mono text-white' id='receita-total-val'>0</span>
+      </div>
+      <input type='range' id='receita-total' min='0' max='1000000' step='1' value='0' oninput="updateSliderValue('receita-total')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Producao</label>
+        <span class='text-sm font-mono text-white' id='custo-producao-val'>0</span>
+      </div>
+      <input type='range' id='custo-producao' min='0' max='1000000' step='1' value='0' oninput="updateSliderValue('custo-producao')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Transporte</label>
+        <span class='text-sm font-mono text-white' id='custo-transporte-val'>0</span>
+      </div>
+      <input type='range' id='custo-transporte' min='0' max='1000000' step='1' value='0' oninput="updateSliderValue('custo-transporte')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Seguro</label>
+        <span class='text-sm font-mono text-white' id='custo-seguro-val'>0</span>
+      </div>
+      <input type='range' id='custo-seguro' min='0' max='1000000' step='1' value='0' oninput="updateSliderValue('custo-seguro')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Outros Custos</label>
+        <span class='text-sm font-mono text-white' id='outros-custos-val'>0</span>
+      </div>
+      <input type='range' id='outros-custos' min='0' max='1000000' step='1' value='0' oninput="updateSliderValue('outros-custos')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Investimento Inicial</label>
+        <span class='text-sm font-mono text-white' id='investimento-inicial-val'>0</span>
+      </div>
+      <input type='range' id='investimento-inicial' min='0' max='1000000' step='1' value='0' oninput="updateSliderValue('investimento-inicial')">
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Manutencao</label>
+        <span class='text-sm font-mono text-white' id='custo-manutencao-val'>0</span>
+      </div>
+      <input type='range' id='custo-manutencao' min='0' max='1000000' step='1' value='0' oninput="updateSliderValue('custo-manutencao')">
+    </div>
+    <div id='resultado-valor'></div>
+    <canvas id='grafico-ia'></canvas></div>
+            </div>
+            <div class="flex flex-col justify-center items-center bg-slate-900/50 p-8 rounded-2xl border border-slate-800">
+                <div class="relative w-full max-w-[250px] aspect-square mb-6"><canvas id="grafico-ia"></canvas></div>
+                <p class="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Impacto Financeiro Estimado</p>
+                <h2 id="resultado-valor" class="text-5xl font-black text-emerald-400">R$ 0,00</h2>
+            </div>
+        </div>
+
+        <div class="mt-10 flex justify-center">
+            <button onclick="ativarPurgatorio()" class="btn-action text-white font-black text-lg py-5 px-14 rounded-2xl">
+                🔬 INICIAR DIAGNÓSTICO DE FALHAS
+            </button>
+        </div>
+    </div>
+
+    <div id="fase-2" style="display:none;" class="w-full max-w-4xl glass-panel rounded-3xl p-12 text-center flex-col items-center">
+        <h2 class="text-3xl font-black text-cyan-400 mb-8 animate-pulse">CRUZANDO DADOS...</h2>
+        <div class="loader-ring mx-auto mb-8"></div>
+        <div class="w-full bg-slate-900 border border-slate-700 rounded-xl h-[280px] flex items-center justify-center overflow-hidden">
+            <ins class="adsbygoogle" style="display:block; width:100%; height:100%;" data-ad-client="ca-pub-1243114536236949" data-ad-slot="AUTO_SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        </div>
+    </div>
+
+    <div id="fase-3" style="display:none;" class="w-full max-w-2xl glass-panel rounded-3xl p-10 text-center">
+        <h2 class="text-3xl font-black text-white mb-4">Laudo Interrompido (99%)</h2>
+        <p class="text-slate-400 mb-8">Nossos algoritmos identificaram gargalos. Autentique seu acesso corporativo.</p>
+        
+        <input type="email" id="email-corporativo" placeholder="email@suaempresa.com.br" class="w-full bg-slate-900 border border-slate-700 text-white px-6 py-4 rounded-xl mb-4">
+        <button onclick="dispararWebhook()" class="btn-action w-full text-white font-black py-4 px-6 rounded-xl mb-8">
+            DESBLOQUEAR DOSSIÊ
+        </button>
+
+        <a href="https://www.google.com" target="_blank" class="block w-full bg-emerald-600 text-white font-black py-4 px-6 rounded-xl">
+            Conheça Soluções Corporativas Avançadas
+        </a>
+    </div>
+
+    <script>
+        // AQUI O PYTHON INJETA A MATEMATICA DA GROQ
+        function updateSliderValue(id) { document.getElementById(id + '-val').innerHTML = document.getElementById(id).value; executarCalculosIA(); } 
+   function executarCalculosIA() { 
+     let receitaTotal = parseInt(document.getElementById('receita-total').value); 
+     let custoProducao = parseInt(document.getElementById('custo-producao').value); 
+     let custoTransporte = parseInt(document.getElementById('custo-transporte').value); 
+     let custoSeguro = parseInt(document.getElementById('custo-seguro').value); 
+     let outrosCustos = parseInt(document.getElementById('outros-custos').value); 
+     let investimentoInicial = parseInt(document.getElementById('investimento-inicial').value); 
+     let custoManutencao = parseInt(document.getElementById('custo-manutencao').value); 
+     let resultado = ((receitaTotal - (custoProducao + custoTransporte + custoSeguro + outrosCustos)) / (investimentoInicial + custoManutencao)) * 100; 
+     document.getElementById('resultado-valor').innerHTML = 'ROI: ' + resultado.toFixed(2) + '%'; 
+     new Chart(document.getElementById('grafico-ia'), { 
+       type: 'doughnut', 
+       data: { 
+         labels: ['Lucro', 'Custo'], 
+         datasets: [{ 
+           data: [resultado, 100 - resultado], 
+           backgroundColor: ['#06b6d4', '#ef4444'] 
+         }] 
+       } 
+     }); 
+   }
+        
+        // Ativa a primeira interacao pro grafico nao nascer morto
+        setTimeout(() => {
+            if(typeof executarCalculosIA === 'function') executarCalculosIA();
+        }, 500);
+
+        function updateSliderValue(id) {
+            let val = document.getElementById(id).value;
+            let display = document.getElementById(id + '-val');
+            if(display) display.innerText = val;
+            if(typeof executarCalculosIA === 'function') executarCalculosIA();
+        }
+
+        function ativarPurgatorio() {
+            document.getElementById('fase-1').style.display = 'none';
+            document.getElementById('fase-2').style.display = 'flex';
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+            setTimeout(() => {
+                document.getElementById('fase-2').style.display = 'none';
+                document.getElementById('fase-3').style.display = 'block';
+            }, 4800);
+        }
+
+        // SUA CHAVE DO MAKE.COM ORIGINAL AQUI
+        function dispararWebhook() {
+            const email = document.getElementById('email-corporativo').value;
+            if(!email || !email.includes('@')) return alert('Informe um e-mail valido.');
+            fetch('https://hook.eu1.make.com/ex61bvef6ijnzc5tb6k4aelje9qwxl1m', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, tracker: window.location.href })
+            }).then(() => {
+                document.getElementById('fase-3').innerHTML = '<h2 class="text-3xl font-black text-emerald-500">Acesso Homologado! PDF Enviado.</h2>';
+            });
+        }
+    </script>
+</body>
+</html>
