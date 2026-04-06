@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estimativa de Custo Industrial para Agronegócio de Precisão 2030</title>
+    <title>Estimativa de Custo Industrial para Agronegócio de Precisão 2028</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1243114536236949" crossorigin="anonymous"></script>
@@ -23,7 +23,7 @@
     <div id="fase-1" class="w-full max-w-6xl glass-panel rounded-3xl p-8 relative z-10">
         <header class="text-center mb-10 border-b border-slate-800 pb-6">
             <span class="inline-block py-1 px-3 rounded-full bg-emerald-900/30 text-emerald-400 border border-emerald-800 text-xs font-black tracking-widest mb-4">SISTEMA PREDITIVO ONLINE</span>
-            <h1 class="text-4xl font-black text-white">Estimativa de Custo Industrial para Agronegócio de Precisão 2030</h1>
+            <h1 class="text-4xl font-black text-white">Estimativa de Custo Industrial para Agronegócio de Precisão 2028</h1>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -37,10 +37,10 @@
     </div>
     <div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Quantidade de Insumos</label>
-        <span class='text-sm font-mono text-white' id='qtd-insumos-val'>0</span>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Quantidade</label>
+        <span class='text-sm font-mono text-white' id='quantidade-val'>0</span>
       </div>
-      <input type='range' id='qtd-insumos' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('qtd-insumos')">
+      <input type='range' id='quantidade' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('quantidade')">
     </div>
     <div>
       <div class='flex justify-between mb-1'>
@@ -51,10 +51,10 @@
     </div>
     <div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Quantidade de Mão de Obra</label>
-        <span class='text-sm font-mono text-white' id='qtd-mao-de-obra-val'>0</span>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Tempo</label>
+        <span class='text-sm font-mono text-white' id='tempo-val'>0</span>
       </div>
-      <input type='range' id='qtd-mao-de-obra' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('qtd-mao-de-obra')">
+      <input type='range' id='tempo' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('tempo')">
     </div>
     <div>
       <div class='flex justify-between mb-1'>
@@ -65,10 +65,10 @@
     </div>
     <div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Quantidade de Equipamentos</label>
-        <span class='text-sm font-mono text-white' id='qtd-equipamentos-val'>0</span>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Depreciação</label>
+        <span class='text-sm font-mono text-white' id='depreciacao-val'>0</span>
       </div>
-      <input type='range' id='qtd-equipamentos' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('qtd-equipamentos')">
+      <input type='range' id='depreciacao' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('depreciacao')">
     </div>
     <div>
       <div class='flex justify-between mb-1'>
@@ -79,10 +79,10 @@
     </div>
     <div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Consumo de Energia</label>
-        <span class='text-sm font-mono text-white' id='consumo-energia-val'>0</span>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Consumo</label>
+        <span class='text-sm font-mono text-white' id='consumo-val'>0</span>
       </div>
-      <input type='range' id='consumo-energia' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('consumo-energia')">
+      <input type='range' id='consumo' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('consumo')">
     </div>
     <div>
       <div class='flex justify-between mb-1'>
@@ -93,10 +93,10 @@
     </div>
     <div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Quantidade de Outros Custos</label>
-        <span class='text-sm font-mono text-white' id='qtd-outros-custos-val'>0</span>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Taxa</label>
+        <span class='text-sm font-mono text-white' id='taxa-val'>0</span>
       </div>
-      <input type='range' id='qtd-outros-custos' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('qtd-outros-custos')">
+      <input type='range' id='taxa' min='0' max='1000' step='1' value='0' oninput="updateSliderValue('taxa')">
     </div></div>
             </div>
             <div class="flex flex-col justify-center items-center bg-slate-900/50 p-8 rounded-2xl border border-slate-800">
@@ -137,22 +137,27 @@
 
     <script>
         // AQUI O PYTHON INJETA A MATEMATICA DA GROQ
-        function updateSliderValue(id) { document.getElementById(id + '-val').innerHTML = document.getElementById(id).value; } 
+        function updateSliderValue(id) { document.getElementById(id + '-val').innerHTML = document.getElementById(id).value; }
    function executarCalculosIA() { 
-     let insumos = parseInt(document.getElementById('insumos').value) * parseInt(document.getElementById('qtd-insumos').value); 
-     let maoDeObra = parseInt(document.getElementById('mao-de-obra').value) * parseInt(document.getElementById('qtd-mao-de-obra').value); 
-     let equipamentos = parseInt(document.getElementById('equipamentos').value) * parseInt(document.getElementById('qtd-equipamentos').value); 
-     let energia = parseInt(document.getElementById('energia').value) * parseInt(document.getElementById('consumo-energia').value); 
-     let outrosCustos = parseInt(document.getElementById('outros-custos').value) * parseInt(document.getElementById('qtd-outros-custos').value); 
-     let resultado = insumos + maoDeObra + equipamentos + energia + outrosCustos; 
+     let insumos = parseInt(document.getElementById('insumos').value); 
+     let quantidade = parseInt(document.getElementById('quantidade').value); 
+     let maoDeObra = parseInt(document.getElementById('mao-de-obra').value); 
+     let tempo = parseInt(document.getElementById('tempo').value); 
+     let equipamentos = parseInt(document.getElementById('equipamentos').value); 
+     let depreciacao = parseInt(document.getElementById('depreciacao').value); 
+     let energia = parseInt(document.getElementById('energia').value); 
+     let consumo = parseInt(document.getElementById('consumo').value); 
+     let outrosCustos = parseInt(document.getElementById('outros-custos').value); 
+     let taxa = parseInt(document.getElementById('taxa').value); 
+     let resultado = (insumos * quantidade) + (maoDeObra * tempo) + (equipamentos * depreciacao) + (energia * consumo) + (outrosCustos * taxa); 
      document.getElementById('resultado-valor').innerHTML = 'R$ ' + resultado.toFixed(2); 
      new Chart(document.getElementById('grafico-ia'), { 
        type: 'doughnut', 
        data: { 
-         labels: ['Insumos', 'Mão de Obra', 'Equipamentos', 'Energia', 'Outros Custos'], 
+         labels: ['Custo de Insumos', 'Custo de Mão de Obra', 'Custo de Equipamentos', 'Custo de Energia', 'Outros Custos'], 
          datasets: [{ 
-           data: [insumos, maoDeObra, equipamentos, energia, outrosCustos], 
-           backgroundColor: ['#ef4444', '#06b6d4', '#34c759', '#8b9467', '#f59e0b'] 
+           data: [(insumos * quantidade), (maoDeObra * tempo), (equipamentos * depreciacao), (energia * consumo), (outrosCustos * taxa)], 
+           backgroundColor: ['#ef4444', '#06b6d4', '#34C759', '#8B9467', '#FFC107'] 
          }] 
        } 
      }); 
