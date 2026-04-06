@@ -33,51 +33,64 @@
         <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Manutenção Preventiva</label>
         <span class='text-sm font-mono text-white' id='manutencao-preventiva-val'>0</span>
       </div>
-      <input type='range' id='manutencao-preventiva' min='0' max='10000' step='1' value='0' oninput="updateSliderValue('manutencao-preventiva')">
-
+      <input type='range' id='manutencao-preventiva' min='0' max='10000' step='1' value='0' oninput='updateSliderValue("manutencao-preventiva")'>
+    </div>
+    <div>
       <div class='flex justify-between mb-1'>
         <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Manutenção Corretiva</label>
         <span class='text-sm font-mono text-white' id='manutencao-corretiva-val'>0</span>
       </div>
-      <input type='range' id='manutencao-corretiva' min='0' max='10000' step='1' value='0' oninput="updateSliderValue('manutencao-corretiva')">
-
+      <input type='range' id='manutencao-corretiva' min='0' max='10000' step='1' value='0' oninput='updateSliderValue("manutencao-corretiva")'>
+    </div>
+    <div>
       <div class='flex justify-between mb-1'>
         <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Combustível</label>
         <span class='text-sm font-mono text-white' id='combustivel-val'>0</span>
       </div>
-      <input type='range' id='combustivel' min='0' max='10000' step='1' value='0' oninput="updateSliderValue('combustivel')">
-
+      <input type='range' id='combustivel' min='0' max='10000' step='1' value='0' oninput='updateSliderValue("combustivel")'>
+    </div>
+    <div>
       <div class='flex justify-between mb-1'>
         <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Mão de Obra</label>
         <span class='text-sm font-mono text-white' id='mao-de-obra-val'>0</span>
       </div>
-      <input type='range' id='mao-de-obra' min='0' max='10000' step='1' value='0' oninput="updateSliderValue('mao-de-obra')">
-
+      <input type='range' id='mao-de-obra' min='0' max='10000' step='1' value='0' oninput='updateSliderValue("mao-de-obra")'>
+    </div>
+    <div>
       <div class='flex justify-between mb-1'>
         <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Peças</label>
         <span class='text-sm font-mono text-white' id='pecas-val'>0</span>
       </div>
-      <input type='range' id='pecas' min='0' max='10000' step='1' value='0' oninput="updateSliderValue('pecas')">
-
+      <input type='range' id='pecas' min='0' max='10000' step='1' value='0' oninput='updateSliderValue("pecas")'>
+    </div>
+    <div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Parada de Produção</label>
-        <span class='text-sm font-mono text-white' id='parada-de-producao-val'>0</span>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Parada</label>
+        <span class='text-sm font-mono text-white' id='parada-val'>0</span>
       </div>
-      <input type='range' id='parada-de-producao' min='0' max='10000' step='1' value='0' oninput="updateSliderValue('parada-de-producao')">
-
+      <input type='range' id='parada' min='0' max='10000' step='1' value='0' oninput='updateSliderValue("parada")'>
+    </div>
+    <div>
+      <div class='flex justify-between mb-1'>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Outros Custos</label>
+        <span class='text-sm font-mono text-white' id='outros-custos-val'>0</span>
+      </div>
+      <input type='range' id='outros-custos' min='0' max='10000' step='1' value='0' oninput='updateSliderValue("outros-custos")'>
+    </div>
+    <div>
       <div class='flex justify-between mb-1'>
         <label class='text-xs font-bold text-cyan-300 uppercase'>Número de Veículos</label>
-        <span class='text-sm font-mono text-white' id='numero-de-veiculos-val'>0</span>
+        <span class='text-sm font-mono text-white' id='numero-veiculos-val'>0</span>
       </div>
-      <input type='range' id='numero-de-veiculos' min='1' max='100' step='1' value='1' oninput="updateSliderValue('numero-de-veiculos')">
-
+      <input type='range' id='numero-veiculos' min='1' max='100' step='1' value='1' oninput='updateSliderValue("numero-veiculos")'>
+    </div>
+    <div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Taxa de Utilização Anual</label>
-        <span class='text-sm font-mono text-white' id='taxa-de-utilizacao-anual-val'>0</span>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Número de Km Rodados</label>
+        <span class='text-sm font-mono text-white' id='numero-km-rodados-val'>0</span>
       </div>
-      <input type='range' id='taxa-de-utilizacao-anual' min='0' max='100' step='1' value='0' oninput="updateSliderValue('taxa-de-utilizacao-anual')">
-
-   </div></div>
+      <input type='range' id='numero-km-rodados' min='0' max='100000' step='1' value='0' oninput='updateSliderValue("numero-km-rodados")'>
+    </div></div>
             </div>
             <div class="flex flex-col justify-center items-center bg-slate-900/50 p-8 rounded-2xl border border-slate-800">
                 <div class="relative w-full max-w-[250px] aspect-square mb-6"><canvas id="grafico-ia"></canvas></div>
@@ -117,29 +130,32 @@
 
     <script>
         // AQUI O PYTHON INJETA A MATEMATICA DA GROQ
-        function updateSliderValue(id) { document.getElementById(id + '-val').innerHTML = document.getElementById(id).value; } 
-   function executarCalculosIA() { 
-      let manutencaoPreventiva = parseInt(document.getElementById('manutencao-preventiva').value); 
-      let manutencaoCorretiva = parseInt(document.getElementById('manutencao-corretiva').value); 
-      let combustivel = parseInt(document.getElementById('combustivel').value); 
-      let maoDeObra = parseInt(document.getElementById('mao-de-obra').value); 
-      let pecas = parseInt(document.getElementById('pecas').value); 
-      let paradaDeProducao = parseInt(document.getElementById('parada-de-producao').value); 
-      let numeroDeVeiculos = parseInt(document.getElementById('numero-de-veiculos').value); 
-      let taxaDeUtilizacaoAnual = parseInt(document.getElementById('taxa-de-utilizacao-anual').value); 
-      let resultado = (manutencaoPreventiva + manutencaoCorretiva + combustivel + maoDeObra + pecas + paradaDeProducao) / numeroDeVeiculos * taxaDeUtilizacaoAnual; 
-      document.getElementById('resultado-valor').innerHTML = 'R$ ' + resultado.toFixed(2); 
-      new Chart(document.getElementById('grafico-ia'), { 
-         type: 'doughnut', 
-         data: { 
-            labels: ['Custo Total', 'Outros'], 
-            datasets: [{ 
-               data: [resultado, 100 - resultado], 
-               backgroundColor: ['#ef4444', '#06b6d4'] 
-            }] 
-         } 
-      }); 
-   }
+        function updateSliderValue(id) {
+      document.getElementById(id + '-val').innerHTML = document.getElementById(id).value;
+    }
+    function executarCalculosIA() {
+      let manutencaoPreventiva = parseInt(document.getElementById('manutencao-preventiva').value);
+      let manutencaoCorretiva = parseInt(document.getElementById('manutencao-corretiva').value);
+      let combustivel = parseInt(document.getElementById('combustivel').value);
+      let maoDeObra = parseInt(document.getElementById('mao-de-obra').value);
+      let pecas = parseInt(document.getElementById('pecas').value);
+      let parada = parseInt(document.getElementById('parada').value);
+      let outrosCustos = parseInt(document.getElementById('outros-custos').value);
+      let numeroVeiculos = parseInt(document.getElementById('numero-veiculos').value);
+      let numeroKmRodados = parseInt(document.getElementById('numero-km-rodados').value);
+      let resultado = (manutencaoPreventiva + manutencaoCorretiva + combustivel + maoDeObra + pecas + parada + outrosCustos) / numeroVeiculos * numeroKmRodados;
+      document.getElementById('resultado-valor').innerHTML = 'R$ ' + resultado.toFixed(2);
+      new Chart(document.getElementById('grafico-ia'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Custo Total', 'Outros'],
+          datasets: [{
+            data: [resultado, 10000 - resultado],
+            backgroundColor: ['#ef4444', '#06b6d4']
+          }]
+        }
+      });
+    }
         
         // Ativa a primeira interacao pro grafico nao nascer morto
         setTimeout(() => {
