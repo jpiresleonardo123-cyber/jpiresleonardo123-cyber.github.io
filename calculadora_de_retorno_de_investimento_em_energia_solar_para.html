@@ -30,36 +30,39 @@
             <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
                 <div id="inputs-container"><div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo do Equipamento</label>
-        <span class='text-sm font-mono text-white' id='custo-equipamento-val'>0</span>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo do Sistema de Energia Solar (R$)</label>
+        <span class='text-sm font-mono text-white' id='custo-sistema-val'>0</span>
       </div>
-      <input type='range' id='custo-equipamento' min='0' max='100000' step='100' value='0' oninput="updateSliderValue('custo-equipamento')">
-
+      <input type='range' id='custo-sistema' min='0' max='100000' step='100' value='0' oninput="updateSliderValue('custo-sistema')">
+    </div>
+    <div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo da Instalação</label>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Custo de Instalação (R$)</label>
         <span class='text-sm font-mono text-white' id='custo-instalacao-val'>0</span>
       </div>
-      <input type='range' id='custo-instalacao' min='0' max='100000' step='100' value='0' oninput="updateSliderValue('custo-instalacao')">
-
+      <input type='range' id='custo-instalacao' min='0' max='50000' step='100' value='0' oninput="updateSliderValue('custo-instalacao')">
+    </div>
+    <div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Consumo de Energia Anual do Galpão</label>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Consumo de Energia Anual (kWh)</label>
         <span class='text-sm font-mono text-white' id='consumo-energia-anual-val'>0</span>
       </div>
       <input type='range' id='consumo-energia-anual' min='0' max='1000000' step='100' value='0' oninput="updateSliderValue('consumo-energia-anual')">
-
+    </div>
+    <div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Tarifa de Energia Atual</label>
-        <span class='text-sm font-mono text-white' id='tarifa-energia-atual-val'>0</span>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Tarifa de Energia (R$/kWh)</label>
+        <span class='text-sm font-mono text-white' id='tarifa-energia-val'>0</span>
       </div>
-      <input type='range' id='tarifa-energia-atual' min='0' max='10' step='0.1' value='0' oninput="updateSliderValue('tarifa-energia-atual')">
-
+      <input type='range' id='tarifa-energia' min='0' max='2' step='0.01' value='0' oninput="updateSliderValue('tarifa-energia')">
+    </div>
+    <div>
       <div class='flex justify-between mb-1'>
-        <label class='text-xs font-bold text-cyan-300 uppercase'>Consumo de Energia Anual com Energia Solar</label>
-        <span class='text-sm font-mono text-white' id='consumo-energia-anual-solar-val'>0</span>
+        <label class='text-xs font-bold text-cyan-300 uppercase'>Consumo de Energia Anual com Solar (kWh)</label>
+        <span class='text-sm font-mono text-white' id='consumo-energia-anual-com-solar-val'>0</span>
       </div>
-      <input type='range' id='consumo-energia-anual-solar' min='0' max='1000000' step='100' value='0' oninput="updateSliderValue('consumo-energia-anual-solar')">
-
-   </div></div>
+      <input type='range' id='consumo-energia-anual-com-solar' min='0' max='1000000' step='100' value='0' oninput="updateSliderValue('consumo-energia-anual-com-solar')">
+    </div></div>
             </div>
             <div class="flex flex-col justify-center items-center bg-slate-900/50 p-8 rounded-2xl border border-slate-800">
                 <div class="relative w-full max-w-[250px] aspect-square mb-6"><canvas id="grafico-ia"></canvas></div>
@@ -99,30 +102,27 @@
 
     <script>
         // AQUI O PYTHON INJETA A MATEMATICA DA GROQ
-        function updateSliderValue(id) { document.getElementById(id + '-val').innerHTML = document.getElementById(id).value; executarCalculosIA(); } 
+        function updateSliderValue(id) { document.getElementById(id + '-val').innerHTML = document.getElementById(id).value; executarCalculosIA(); }
    function executarCalculosIA() { 
-      let custoEquipamento = parseFloat(document.getElementById('custo-equipamento').value); 
-      let custoInstalacao = parseFloat(document.getElementById('custo-instalacao').value); 
-      let consumoEnergiaAnual = parseFloat(document.getElementById('consumo-energia-anual').value); 
-      let tarifaEnergiaAtual = parseFloat(document.getElementById('tarifa-energia-atual').value); 
-      let consumoEnergiaAnualSolar = parseFloat(document.getElementById('consumo-energia-anual-solar').value); 
-      
-      let custoTotalSistema = custoEquipamento + custoInstalacao; 
-      let economiaAnual = (consumoEnergiaAnual * tarifaEnergiaAtual) - (consumoEnergiaAnualSolar * tarifaEnergiaAtual); 
-      let payback = custoTotalSistema / economiaAnual; 
-      
-      document.getElementById('resultado-valor').innerHTML = 'R$ ' + payback.toFixed(2); 
-      
-      new Chart(document.getElementById('grafico-ia'), { 
-         type: 'doughnut', 
-         data: { 
-            labels: ['Custo Total do Sistema', 'Economia Anual'], 
-            datasets: [{ 
-               data: [custoTotalSistema, economiaAnual], 
-               backgroundColor: ['#ef4444', '#06b6d4'] 
-            }] 
-         } 
-      }); 
+     let custoSistema = parseFloat(document.getElementById('custo-sistema').value);
+     let custoInstalacao = parseFloat(document.getElementById('custo-instalacao').value);
+     let consumoEnergiaAnual = parseFloat(document.getElementById('consumo-energia-anual').value);
+     let tarifaEnergia = parseFloat(document.getElementById('tarifa-energia').value);
+     let consumoEnergiaAnualComSolar = parseFloat(document.getElementById('consumo-energia-anual-com-solar').value);
+     let custoTotal = custoSistema + custoInstalacao;
+     let economiaAnual = (consumoEnergiaAnual * tarifaEnergia) - (consumoEnergiaAnualComSolar * tarifaEnergia);
+     let payback = custoTotal / economiaAnual;
+     document.getElementById('resultado-valor').innerHTML = 'R$ ' + payback.toFixed(2);
+     new Chart(document.getElementById('grafico-ia'), { 
+       type: 'doughnut', 
+       data: { 
+         labels: ['Custo Total', 'Economia Anual'], 
+         datasets: [{ 
+           data: [custoTotal, economiaAnual], 
+           backgroundColor: ['#ef4444', '#06b6d4'] 
+         }] 
+       } 
+     }); 
    }
         
         // Ativa a primeira interacao pro grafico nao nascer morto
